@@ -1,78 +1,38 @@
-from datetime import datetime, timedelta
-
-import pytest
-
+from backend.quiz_engine.attempt import Attempt, AttemptStatus
 from backend.quiz_engine.services.timer import QuizTimer
 
 
-def test_timer_calculates_expiration_time():
-    start = datetime(2026, 8, 11, 14, 0, 0)
-
-    timer = QuizTimer(
-        duration_seconds=1800,
-        started_at=start,
+def make_attempt() -> Attempt:
+    return Attempt(
+        id="attempt1",
+        student_id="student1",
+        exam_id="exam1",
     )
 
-    assert timer.expires_at == datetime(2026, 8, 11, 14, 30, 0)
+
+def test_timer_starts_with_attempt():
+    attempt = make_attempt()
+    attempt.start(50)
+
+    remaining = QuizTimer.remaining_seconds(attempt)
+
+    assert remaining > 0
+    assert remaining <= 3000
 
 
-def test_timer_returns_remaining_seconds():
-    start = datetime(2026, 8, 11, 14, 0, 0)
+def test_active_attempt_is_not_expired():
+    attempt = make_attempt()
+    attempt.start(50)
 
-    timer = QuizTimer(
-        duration_seconds=1800,
-        started_at=start,
-    )
-
-    current_time = start + timedelta(minutes=10)
-
-    assert timer.remaining_seconds(current_time) == 1200
+    assert QuizTimer.is_expired(attempt) is False
+    assert attempt.status == AttemptStatus.IN_PROGRESS
 
 
-def test_timer_returns_zero_after_expiration():
-    start = datetime(2026, 8, 11, 14, 0, 0)
+def test_expired_attempt_changes_status():
+    attempt = make_attempt()
+    attempt.start(50)
 
-    timer = QuizTimer(
-        duration_seconds=1800,
-        started_at=start,
-    )
+    attempt.expires_at = 0
 
-    current_time = start + timedelta(minutes=40)
-
-    assert timer.remaining_seconds(current_time) == 0
-
-
-def test_timer_detects_expiration():
-    start = datetime(2026, 8, 11, 14, 0, 0)
-
-    timer = QuizTimer(
-        duration_seconds=1800,
-        started_at=start,
-    )
-
-    current_time = start + timedelta(minutes=31)
-
-    assert timer.is_expired(current_time) is True
-
-
-def test_timer_is_not_expired_before_deadline():
-    start = datetime(2026, 8, 11, 14, 0, 0)
-
-    timer = QuizTimer(
-        duration_seconds=1800,
-        started_at=start,
-    )
-
-    current_time = start + timedelta(minutes=10)
-
-    assert timer.is_expired(current_time) is False
-
-
-def test_timer_requires_positive_duration():
-    start = datetime(2026, 8, 11, 14, 0, 0)
-
-    with pytest.raises(ValueError):
-        QuizTimer(
-            duration_seconds=0,
-            started_at=start,
-        )
+    assert QuizTimer.is_expired(attempt) is True
+    assert attempt.status == AttemptStatus.EXPIRED

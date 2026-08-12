@@ -1,59 +1,32 @@
-from dataclasses import dataclass
-
-from backend.quiz_engine.services.evaluator import EvaluationResult
-
-
-@dataclass
-class ScoreResult:
-    correct_answers: int
-    incorrect_answers: int
-    unanswered: int
-    score: float
-    maximum_score: float
-    percentage: float
+from backend.quiz_engine.exam import Exam
+from backend.quiz_engine.attempt import Attempt
 
 
-def calculate_score(
-    results: list[EvaluationResult],
-    marks_per_correct: float = 1.0,
-    negative_marks: float = 0.0,
-) -> ScoreResult:
-    if marks_per_correct <= 0:
-        raise ValueError("Marks per correct answer must be greater than zero.")
+class QuizScorer:
+    def __init__(self, exam: Exam):
+        self.exam = exam
 
-    if negative_marks < 0:
-        raise ValueError("Negative marks cannot be less than zero.")
+    def calculate_score(self, attempt: Attempt) -> float:
+        score = 0.0
 
-    correct_answers = 0
-    incorrect_answers = 0
-    unanswered = 0
+        for question in self.exam.questions:
+            answer = attempt.answers.get(question.id)
 
-    for result in results:
-        if result.selected_option_id is None:
-            unanswered += 1
-        elif result.is_correct:
-            correct_answers += 1
-        else:
-            incorrect_answers += 1
+            if answer is None:
+                continue
 
-    score = (
-        correct_answers * marks_per_correct
-        - incorrect_answers * negative_marks
-    )
+            if answer.selected_option_id is None:
+                continue
 
-    maximum_score = len(results) * marks_per_correct
+            if question.is_correct(answer.selected_option_id):
+                score += question.marks
 
-    percentage = (
-        (score / maximum_score) * 100
-        if maximum_score > 0
-        else 0.0
-    )
+        return score
 
-    return ScoreResult(
-        correct_answers=correct_answers,
-        incorrect_answers=incorrect_answers,
-        unanswered=unanswered,
-        score=score,
-        maximum_score=maximum_score,
-        percentage=percentage,
-    )
+    def calculate_percentage(self, attempt: Attempt) -> float:
+        if self.exam.total_marks == 0:
+            return 0.0
+
+        score = self.calculate_score(attempt)
+
+        return (score / self.exam.total_marks) * 100

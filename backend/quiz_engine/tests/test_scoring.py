@@ -1,66 +1,87 @@
-import pytest
-
-from backend.quiz_engine.services.evaluator import EvaluationResult
-from backend.quiz_engine.services.scoring import calculate_score
-
-
-def test_score_without_negative_marking():
-    results = [
-        EvaluationResult(1, 2, 2, True),
-        EvaluationResult(2, 1, 2, False),
-        EvaluationResult(3, None, 2, False),
-        EvaluationResult(4, 2, 2, True),
-    ]
-
-    result = calculate_score(results)
-
-    assert result.correct_answers == 2
-    assert result.incorrect_answers == 1
-    assert result.unanswered == 1
-    assert result.score == 2
-    assert result.maximum_score == 4
-    assert result.percentage == 50.0
+from backend.quiz_engine.attempt import Attempt
+from backend.quiz_engine.exam import Exam
+from backend.quiz_engine.question import Option, Question, QuestionType
+from backend.quiz_engine.services.scoring import QuizScorer
 
 
-def test_score_with_negative_marking():
-    results = [
-        EvaluationResult(1, 2, 2, True),
-        EvaluationResult(2, 1, 2, False),
-        EvaluationResult(3, 2, 2, True),
-        EvaluationResult(4, 1, 2, False),
-    ]
-
-    result = calculate_score(
-        results,
-        marks_per_correct=2,
-        negative_marks=0.5,
+def make_question(number: int) -> Question:
+    return Question(
+        id=f"q{number}",
+        question_number=number,
+        question_type=QuestionType.READING,
+        text=f"Question {number}",
+        options=[
+            Option(id=f"{number}a", text="Wrong"),
+            Option(id=f"{number}b", text="Correct", is_correct=True),
+        ],
     )
 
-    assert result.correct_answers == 2
-    assert result.incorrect_answers == 2
-    assert result.score == 3.0
-    assert result.maximum_score == 8
-    assert result.percentage == 37.5
+
+def make_exam() -> Exam:
+    exam = Exam(
+        id="exam1",
+        title="Test Exam",
+        total_questions=2,
+    )
+
+    exam.add_question(make_question(1))
+    exam.add_question(make_question(2))
+
+    return exam
 
 
-def test_unanswered_questions_receive_zero():
-    results = [
-        EvaluationResult(1, None, 2, False),
-        EvaluationResult(2, None, 1, False),
-    ]
+def make_attempt() -> Attempt:
+    attempt = Attempt(
+        id="attempt1",
+        student_id="student1",
+        exam_id="exam1",
+    )
 
-    result = calculate_score(results)
+    attempt.start(50)
 
-    assert result.unanswered == 2
-    assert result.score == 0
-    assert result.percentage == 0.0
-
-
-def test_marks_per_correct_must_be_positive():
-    with pytest.raises(ValueError):
-        calculate_score([], marks_per_correct=0)
+    return attempt
 
 
-def test_negative_marks_cannot_be_negative():
-    with pytest.raises(ValueError):
-        calculate_score([], negative_marks=-1)
+def test_correct_answer_gets_marks():
+    exam = make_exam()
+    attempt = make_attempt()
+
+    attempt.save_answer("q1", "1b")
+
+    scorer = QuizScorer(exam)
+
+    assert scorer.calculate_score(attempt) == 2.5
+
+
+def test_wrong_answer_gets_zero():
+    exam = make_exam()
+    attempt = make_attempt()
+
+    attempt.save_answer("q1", "1a")
+
+    scorer = QuizScorer(exam)
+
+    assert scorer.calculate_score(attempt) == 0.0
+
+
+def test_multiple_correct_answers_are_scored():
+    exam = make_exam()
+    attempt = make_attempt()
+
+    attempt.save_answer("q1", "1b")
+    attempt.save_answer("q2", "2b")
+
+    scorer = QuizScorer(exam)
+
+    assert scorer.calculate_score(attempt) == 5.0
+
+
+def test_percentage_is_calculated():
+    exam = make_exam()
+    attempt = make_attempt()
+
+    attempt.save_answer("q1", "1b")
+
+    scorer = QuizScorer(exam)
+
+    assert scorer.calculate_percentage(attempt) == 50.0

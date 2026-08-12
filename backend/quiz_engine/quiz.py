@@ -1,28 +1,62 @@
-from dataclasses import dataclass, field
-from typing import List
-
-from backend.quiz_engine.question import Question
+from .attempt import Attempt
+from .exam import Exam
 
 
-@dataclass
-class Quiz:
-    id: int
-    title: str
-    questions: List[Question] = field(default_factory=list)
+class QuizEngine:
+    def __init__(self, exam: Exam):
+        self.exam = exam
 
-    def add_question(self, question: Question) -> None:
-        if any(existing.id == question.id for existing in self.questions):
-            raise ValueError("Question already exists in this quiz.")
+    def start_attempt(self, attempt: Attempt) -> Attempt:
+        if attempt.exam_id != self.exam.id:
+            raise ValueError("Attempt does not belong to this exam.")
 
-        self.questions.append(question)
+        self.exam.validate()
+        attempt.start(self.exam.duration_minutes)
 
-    def remove_question(self, question_id: int) -> None:
-        for question in self.questions:
-            if question.id == question_id:
-                self.questions.remove(question)
-                return
+        return attempt
 
-        raise ValueError("Question not found in this quiz.")
+    def get_question(self, question_number: int):
+        if question_number < 1 or question_number > self.exam.total_questions:
+            raise ValueError("Invalid question number.")
 
-    def get_question_count(self) -> int:
-        return len(self.questions)
+        return next(
+            question
+            for question in self.exam.questions
+            if question.question_number == question_number
+        )
+
+    def answer_question(
+        self,
+        attempt: Attempt,
+        question_id: str,
+        option_id: str,
+    ) -> None:
+        question = next(
+            (q for q in self.exam.questions if q.id == question_id),
+            None,
+        )
+
+        if question is None:
+            raise ValueError(f"Question not found: {question_id}")
+
+        if not any(option.id == option_id for option in question.options):
+            raise ValueError(f"Invalid option: {option_id}")
+
+        attempt.save_answer(question_id, option_id)
+
+    def next_question(self, attempt: Attempt) -> int:
+        if attempt.current_question >= self.exam.total_questions:
+            return attempt.current_question
+
+        attempt.current_question += 1
+        return attempt.current_question
+
+    def previous_question(self, attempt: Attempt) -> int:
+        if attempt.current_question <= 1:
+            return attempt.current_question
+
+        attempt.current_question -= 1
+        return attempt.current_question
+
+    def submit_attempt(self, attempt: Attempt) -> None:
+        attempt.submit()

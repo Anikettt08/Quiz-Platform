@@ -1,22 +1,37 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timezone
+
+from backend.quiz_engine.attempt import Attempt, AttemptStatus
 
 
 class QuizTimer:
-    def __init__(self, duration_seconds: int, started_at: datetime):
-        if duration_seconds <= 0:
-            raise ValueError("Duration must be greater than zero.")
+    @staticmethod
+    def remaining_seconds(attempt: Attempt) -> int:
+        if attempt.expires_at is None:
+            raise ValueError("Attempt has not been started.")
 
-        self.duration_seconds = duration_seconds
-        self.started_at = started_at
+        remaining = int(
+            attempt.expires_at
+            - datetime.now(timezone.utc).timestamp()
+        )
 
-    @property
-    def expires_at(self) -> datetime:
-        return self.started_at + timedelta(seconds=self.duration_seconds)
+        return max(0, remaining)
 
-    def remaining_seconds(self, current_time: datetime) -> int:
-        remaining = (self.expires_at - current_time).total_seconds()
+    @staticmethod
+    def is_expired(attempt: Attempt) -> bool:
+        if attempt.expires_at is None:
+            return False
 
-        return max(0, int(remaining))
+        expired = (
+            datetime.now(timezone.utc).timestamp()
+            >= attempt.expires_at
+        )
 
-    def is_expired(self, current_time: datetime) -> bool:
-        return current_time >= self.expires_at
+        if expired and attempt.status == AttemptStatus.IN_PROGRESS:
+            attempt.status = AttemptStatus.EXPIRED
+
+        return expired
+
+    @staticmethod
+    def expire_if_needed(attempt: Attempt) -> None:
+        if QuizTimer.is_expired(attempt):
+            raise ValueError("Attempt has expired.")
