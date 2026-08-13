@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPS TOPIK - Question Navigator</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .profile-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  padding: 8px 18px 8px 8px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  color: #111827;
+}
+
+.profile-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #eef4ff;
+  color: #3767b0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.profile-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.profile-roll {
+  font-size: 13px;
+  font-weight: 600;
+  color: #5f6b7a;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:"Segoe UI",Arial,sans-serif;color:#111}
+.nav-header{background:var(--cyan);color:#fff;padding:18px 4.3% 0}
+.nav-top{display:flex;justify-content:flex-start;align-items:center;gap:85px;font-size:31px;padding-bottom:18px}
+.nav-top .id{margin-left:0}
+.nav-stats{
+  display:grid;
+  grid-template-columns:220px 220px 220px 1fr 230px;
+  gap:18px;
+  align-items:stretch;
+}
+.nav-stat{background:rgba(255,255,255,.12);min-height:44px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.nav-stat.spacer{
+  background:transparent;
+}
+.nav-stat.total{background:transparent;justify-content:flex-end}
+.nav-main{max-width:970px;margin:0 auto;padding:24px 25px 20px;min-height:calc(100vh - 150px);position:relative}
+.nav-section-title{text-align:center;color:#3f70bd;font-size:30px;font-weight:400;margin:0 0 12px}
+.nav-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:18px 24px;margin-bottom:48px}
+.nav-q{height:72px;background:#fff;border:1.5px solid #3767b0;border-radius:12px;font-size:26px;font-weight:700;cursor:pointer}
+.nav-q:hover{background:#eef6ff}
+.nav-q.answered{background:var(--cyan);color:#fff;border-color:var(--cyan)}
+.nav-submit{position:fixed;right:2.3%;bottom:20px;background:var(--cyan);border:1px solid #2865a7;color:#fff;border-radius:8px;padding:13px 28px;font-size:18px;cursor:pointer}
+.nav-submit:hover{background:var(--cyan-dark)}
+.nav-back{position:fixed;left:2.3%;bottom:20px;background:#fff;border:1px solid #3767b0;color:#3767b0;border-radius:8px;padding:12px 22px;font-size:16px;cursor:pointer}
+@media(max-width:900px){
+ .nav-top{font-size:24px;gap:30px}
+ .nav-stats{grid-template-columns:repeat(3,1fr)}
+ .nav-stat.total{grid-column:1/-1;justify-content:center}
+ .nav-grid{grid-template-columns:repeat(5,1fr);gap:12px}
+ .nav-q{height:60px;font-size:21px}
+}
+@media(max-width:600px){
+ .nav-header{padding-left:15px;padding-right:15px}
+ .nav-top{font-size:18px;justify-content:space-between}
+ .nav-stats{grid-template-columns:1fr 1fr}
+ .nav-stat{font-size:14px}
+ .nav-grid{grid-template-columns:repeat(5,1fr);gap:8px}
+ .nav-q{height:52px;font-size:18px}
+ .nav-main{padding:18px 12px 90px}
+ .nav-section-title{font-size:25px}
+ .nav-submit{right:12px;bottom:12px}
+ .nav-back{left:12px;bottom:12px}
+}
+</style>
+</head>
+<body>
+<header class="nav-header">
+  <div class="nav-top">
+  <div class="profile-card">
+    <div class="profile-avatar">SL</div>
+    <div class="profile-details">
+      <div class="profile-name">Sun Lee</div>
+      <div class="profile-roll">2023000950</div>
+    </div>
+  </div>
+</div>
+  <div class="nav-stats">
+  <div class="nav-stat">Set No. 01</div>
+  <div class="nav-stat">Solved: <b>0</b></div>
+  <div class="nav-stat">Unsolved: <b>40</b></div>
+
+  <div class="nav-stat spacer"></div>
+
+  <div class="nav-stat total">
+    Total Questions: 40
+  </div>
+</div>
+</header>
+
+<main class="nav-main">
+  <h1 class="nav-section-title">읽기&nbsp; (20문항)</h1>
+  <div class="nav-grid" id="readingGrid"></div>
+
+  <h1 class="nav-section-title">듣기&nbsp; (20문항)</h1>
+  <div class="nav-grid" id="listeningGrid"></div>
+</main>
+
+<button class="nav-back" id="backBtn">← Set Selection</button>
+<button class="nav-submit" id="submitBtn">Submit Answer</button>
+
+<script>
+function makeButton(n){
+  const b=document.createElement("button");
+  b.className="nav-q";
+  b.textContent=n;
+  b.onclick=()=>window.location.href="exam.html?q="+n;
+  return b;
+}
+for(let i=1;i<=20;i++) document.getElementById("readingGrid").appendChild(makeButton(i));
+for(let i=21;i<=40;i++) document.getElementById("listeningGrid").appendChild(makeButton(i));
+
+document.getElementById("backBtn").onclick=()=>window.location.href="index.html";
+document.getElementById("submitBtn").onclick=()=>alert("Please select a question to start the exam.");
+</script>
+</body>
+</html>
