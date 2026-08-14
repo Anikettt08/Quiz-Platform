@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from backend.quiz_engine.repository.in_memory import (
     InMemoryAttemptRepository,
@@ -16,6 +17,23 @@ def create_app() -> FastAPI:
         title="Inseed Quiz Platform",
         description="Quiz engine API — Backend Developer 2",
         version="0.1.0",
+    )
+
+    # ── Frontend development CORS ────────
+    # Allows the separately served frontend apps to call this API.
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[
+            "http://localhost:3000",
+            "http://localhost:5173",
+            "http://localhost:5500",
+            "http://127.0.0.1:3000",
+            "http://127.0.0.1:5173",
+            "http://127.0.0.1:5500",
+        ],
+        allow_credentials=False,
+        allow_methods=["*"],
+        allow_headers=["*"],
     )
 
     # ── Shared repository instances ──────
