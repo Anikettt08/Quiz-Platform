@@ -21,12 +21,14 @@
   <div class="stats">
     <div>Set No. <b>01</b></div>
     <div>Solved: <b id="solved">0</b></div>
-    <div>Unsolved: <b id="unsolved">40</b></div>
-    <div>Total Questions: <b>40</b></div>
+   <div>Unsolved: <b id="unsolved">--</b></div>
+<div>Total Questions: <b id="totalQuestions">--</b></div>
   </div>
 </header>
 
-<div class="section-bar" id="sectionBar">읽기 (20문항)<span>Total Questions: 40</span></div>
+<div class="section-bar" id="sectionBar">
+  읽기 (20문항)<span id="sectionTotal">Total Questions: --</span>
+</div>
 
 <main class="exam">
   <section class="question-area">
@@ -94,9 +96,9 @@
 <div class="overlay hidden" id="resultModal">
   <div class="result-box">
     <h1>You have successfully submitted your test.</h1>
-    <div>Total questions: <b id="resultTotal">40</b></div>
+    <div>Total questions: <b id="resultTotal">--</b></div>
     <div>Answered: <b id="resultAnswered">0</b></div>
-    <div>Unanswered: <b id="resultUnanswered">40</b></div>
+    <div>Unanswered: <b id="resultUnanswered">--</b></div>
     <div class="note">Correct/Wrong scoring can be connected when the answer key is added.</div>
     <button class="submit" id="closeResult">View submitted questions</button>
   </div>

@@ -6,28 +6,84 @@
 <title>EPS TOPIK - Question Navigator</title>
 <link rel="stylesheet" href="styles.css">
 <style>
-  .profile-card {
+/* =========================
+   PAGE
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 5% 15%, rgba(37, 99, 235, 0.07) 0 110px, transparent 111px),
+    radial-gradient(circle at 96% 30%, rgba(37, 99, 235, 0.06) 0 130px, transparent 131px),
+    #f5f8ff;
+
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #14213d;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.nav-header {
+  background: #ffffff;
+  color: #14213d;
+  padding: 20px 5% 0;
+  border-bottom: 1px solid #e3e9f3;
+  box-shadow: 0 3px 15px rgba(30, 64, 175, 0.05);
+}
+
+
+/* =========================
+   TOP HEADER
+========================= */
+
+.nav-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-card {
   display: flex;
   align-items: center;
-  gap: 12px;
-  background: #ffffff;
-  padding: 8px 18px 8px 8px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  color: #111827;
+  gap: 13px;
+
+  background: transparent;
+  padding: 0;
+
+  border-radius: 0;
+  box-shadow: none;
+
+  color: #14213d;
 }
 
 .profile-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #eef4ff;
-  color: #3767b0;
+  width: 52px;
+  height: 52px;
+
+  border-radius: 14px;
+
+  background: #eaf1ff;
+  color: #2563eb;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-size: 17px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .profile-details {
@@ -37,85 +93,447 @@
 }
 
 .profile-name {
-  font-size: 18px;
-  font-weight: 700;
-  color: #111827;
+  font-size: 17px;
+  font-weight: 800;
+  color: #14213d;
 }
 
 .profile-roll {
   font-size: 13px;
+  font-weight: 500;
+  color: #718096;
+  margin-top: 3px;
+}
+
+
+/* =========================
+   BRAND
+========================= */
+
+.nav-top::after {
+  content: "EPS TOPIK  •  Question Navigator";
+
+  font-size: 18px;
+  font-weight: 700;
+  color: #14213d;
+  letter-spacing: 0.2px;
+}
+
+
+/* =========================
+   STATISTICS
+========================= */
+
+.nav-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+
+  gap: 14px;
+
+  align-items: stretch;
+
+  padding-bottom: 20px;
+}
+
+.nav-stat {
+  background: #f8faff;
+
+  min-height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #dce5f3;
+  border-radius: 10px;
+
+  font-size: 14px;
+  color: #52627a;
+
+  padding: 12px;
+}
+
+.nav-stat b {
+  color: #14213d;
+  margin-left: 5px;
+}
+
+.nav-stat.spacer {
+  display: none;
+}
+
+.nav-stat.total {
+  background: #eaf1ff;
+
+  border-color: #cdddf7;
+
+  justify-content: center;
+
+  color: #2563eb;
+
+  font-weight: 700;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.nav-main {
+  max-width: 1050px;
+
+  margin: 0 auto;
+
+  padding: 42px 25px 110px;
+
+  min-height: calc(100vh - 180px);
+
+  position: relative;
+}
+
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.nav-section-title {
+  text-align: left;
+
+  color: #14213d;
+
+  font-size: 21px;
+
+  font-weight: 800;
+
+  margin: 0 0 18px;
+
+  padding-left: 15px;
+
+  border-left: 4px solid #2563eb;
+}
+
+
+/* =========================
+   QUESTION GRID
+========================= */
+
+.nav-grid {
+  display: grid;
+
+  grid-template-columns: repeat(10, 1fr);
+
+  gap: 14px;
+
+  margin-bottom: 42px;
+}
+
+
+/* =========================
+   QUESTION BUTTON
+========================= */
+
+.nav-q {
+  height: 62px;
+
+  background: #ffffff;
+
+  border: 1px solid #d5e0ef;
+
+  border-radius: 12px;
+
+  color: #263854;
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 0 3px 10px rgba(30, 64, 175, 0.04);
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.nav-q:hover {
+  background: #eef4ff;
+
+  border-color: #8fb2ed;
+
+  color: #2563eb;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================
+   ANSWERED QUESTION
+========================= */
+
+.nav-q.answered {
+  background: #2563eb;
+
+  color: #ffffff;
+
+  border-color: #2563eb;
+
+  box-shadow: 0 5px 14px rgba(37, 99, 235, 0.20);
+}
+
+
+/* =========================
+   BOTTOM BUTTONS
+========================= */
+
+.nav-submit {
+  position: fixed;
+
+  right: 3%;
+
+  bottom: 22px;
+
+  background: #2563eb;
+
+  border: none;
+
+  color: #ffffff;
+
+  border-radius: 10px;
+
+  padding: 14px 25px;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 0 7px 18px rgba(37, 99, 235, 0.22);
+
+  transition: 0.2s ease;
+}
+
+.nav-submit:hover {
+  background: #1d4ed8;
+
+  transform: translateY(-1px);
+}
+
+
+.nav-back {
+  position: fixed;
+
+  left: 3%;
+
+  bottom: 22px;
+
+  background: #ffffff;
+
+  border: 1px solid #d3deee;
+
+  color: #52627a;
+
+  border-radius: 10px;
+
+  padding: 13px 22px;
+
+  font-size: 14px;
+
   font-weight: 600;
-  color: #5f6b7a;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
 }
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);font-family:"Segoe UI",Arial,sans-serif;color:#111}
-.nav-header{background:var(--cyan);color:#fff;padding:18px 4.3% 0}
-.nav-top{display:flex;justify-content:flex-start;align-items:center;gap:85px;font-size:31px;padding-bottom:18px}
-.nav-top .id{margin-left:0}
-.nav-stats{
-  display:grid;
-  grid-template-columns:220px 220px 220px 1fr 230px;
-  gap:18px;
-  align-items:stretch;
+
+.nav-back:hover {
+  border-color: #2563eb;
+
+  color: #2563eb;
+
+  background: #f8fbff;
 }
-.nav-stat{background:rgba(255,255,255,.12);min-height:44px;display:flex;align-items:center;justify-content:center;font-size:18px}
-.nav-stat.spacer{
-  background:transparent;
+
+
+/* =========================
+   MOBILE / TABLET
+========================= */
+
+@media(max-width: 900px) {
+
+  .nav-top::after {
+    font-size: 16px;
+  }
+
+  .nav-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .nav-grid {
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 12px;
+  }
+
+  .nav-q {
+    height: 58px;
+
+    font-size: 17px;
+  }
 }
-.nav-stat.total{background:transparent;justify-content:flex-end}
-.nav-main{max-width:970px;margin:0 auto;padding:24px 25px 20px;min-height:calc(100vh - 150px);position:relative}
-.nav-section-title{text-align:center;color:#3f70bd;font-size:30px;font-weight:400;margin:0 0 12px}
-.nav-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:18px 24px;margin-bottom:48px}
-.nav-q{height:72px;background:#fff;border:1.5px solid #3767b0;border-radius:12px;font-size:26px;font-weight:700;cursor:pointer}
-.nav-q:hover{background:#eef6ff}
-.nav-q.answered{background:var(--cyan);color:#fff;border-color:var(--cyan)}
-.nav-submit{position:fixed;right:2.3%;bottom:20px;background:var(--cyan);border:1px solid #2865a7;color:#fff;border-radius:8px;padding:13px 28px;font-size:18px;cursor:pointer}
-.nav-submit:hover{background:var(--cyan-dark)}
-.nav-back{position:fixed;left:2.3%;bottom:20px;background:#fff;border:1px solid #3767b0;color:#3767b0;border-radius:8px;padding:12px 22px;font-size:16px;cursor:pointer}
-@media(max-width:900px){
- .nav-top{font-size:24px;gap:30px}
- .nav-stats{grid-template-columns:repeat(3,1fr)}
- .nav-stat.total{grid-column:1/-1;justify-content:center}
- .nav-grid{grid-template-columns:repeat(5,1fr);gap:12px}
- .nav-q{height:60px;font-size:21px}
-}
-@media(max-width:600px){
- .nav-header{padding-left:15px;padding-right:15px}
- .nav-top{font-size:18px;justify-content:space-between}
- .nav-stats{grid-template-columns:1fr 1fr}
- .nav-stat{font-size:14px}
- .nav-grid{grid-template-columns:repeat(5,1fr);gap:8px}
- .nav-q{height:52px;font-size:18px}
- .nav-main{padding:18px 12px 90px}
- .nav-section-title{font-size:25px}
- .nav-submit{right:12px;bottom:12px}
- .nav-back{left:12px;bottom:12px}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width: 600px) {
+
+  .nav-header {
+    padding: 15px 15px 0;
+  }
+
+  .nav-top {
+    padding-bottom: 15px;
+  }
+
+  .nav-top::after {
+    font-size: 14px;
+
+    text-align: right;
+  }
+
+  .profile-avatar {
+    width: 44px;
+    height: 44px;
+
+    border-radius: 12px;
+  }
+
+  .profile-name {
+    font-size: 15px;
+  }
+
+  .profile-roll {
+    font-size: 11px;
+  }
+
+  .nav-stats {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 9px;
+  }
+
+  .nav-stat {
+    min-height: 48px;
+
+    font-size: 12px;
+
+    padding: 8px;
+  }
+
+  .nav-main {
+    padding: 30px 15px 100px;
+  }
+
+  .nav-section-title {
+    font-size: 19px;
+  }
+
+  .nav-grid {
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 8px;
+
+    margin-bottom: 32px;
+  }
+
+  .nav-q {
+    height: 50px;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+  }
+
+  .nav-submit {
+    right: 12px;
+
+    bottom: 12px;
+
+    padding: 12px 18px;
+
+    font-size: 13px;
+  }
+
+  .nav-back {
+    left: 12px;
+
+    bottom: 12px;
+
+    padding: 11px 15px;
+
+    font-size: 12px;
+  }
 }
 </style>
+
 </head>
 <body>
 <header class="nav-header">
+
   <div class="nav-top">
-  <div class="profile-card">
-    <div class="profile-avatar">SL</div>
-    <div class="profile-details">
-      <div class="profile-name">Sun Lee</div>
-      <div class="profile-roll">2023000950</div>
+
+    <div class="profile-card">
+
+      <div class="profile-avatar">
+        SL
+      </div>
+
+      <div class="profile-details">
+
+        <div class="profile-name">
+          Sun Lee
+        </div>
+
+        <div class="profile-roll">
+          Roll No. 2023000950
+        </div>
+
+      </div>
+
     </div>
+
   </div>
-</div>
+
+
   <div class="nav-stats">
-  <div class="nav-stat">Set No. 01</div>
-  <div class="nav-stat">Solved: <b>0</b></div>
-  <div class="nav-stat">Unsolved: <b>40</b></div>
 
-  <div class="nav-stat spacer"></div>
+    <div class="nav-stat">
+      📋 &nbsp; Set No. 01
+    </div>
 
-  <div class="nav-stat total">
-    Total Questions: 40
+    <div class="nav-stat">
+      Solved: <b>0</b>
+    </div>
+
+    <div class="nav-stat">
+      Unsolved: <b>40</b>
+    </div>
+
+    <div class="nav-stat total">
+      Total Questions: 40
+    </div>
+
   </div>
-</div>
+
 </header>
+
 
 <main class="nav-main">
   <h1 class="nav-section-title">읽기&nbsp; (20문항)</h1>
@@ -125,8 +543,13 @@ body{margin:0;background:var(--bg);font-family:"Segoe UI",Arial,sans-serif;color
   <div class="nav-grid" id="listeningGrid"></div>
 </main>
 
-<button class="nav-back" id="backBtn">← Set Selection</button>
-<button class="nav-submit" id="submitBtn">Submit Answer</button>
+<button class="nav-back" id="backBtn">
+  ← Set Selection
+</button>
+
+<button class="nav-submit" id="submitBtn">
+  Submit Answer →
+</button>
 
 <script>
 function makeButton(n){

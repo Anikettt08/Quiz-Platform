@@ -9,194 +9,537 @@
 <link rel="stylesheet" href="styles.css">
 
 <style>
+/* =========================
+   PAGE
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f8ff;
+  color: #14213d;
+}
+
 .instructions-page {
   min-height: 100vh;
-  background: var(--bg);
+  background:
+    radial-gradient(circle at 5% 15%, rgba(37, 99, 235, 0.08) 0 110px, transparent 111px),
+    radial-gradient(circle at 96% 30%, rgba(37, 99, 235, 0.07) 0 130px, transparent 131px),
+    #f5f8ff;
 }
+
+
+/* =========================
+   HEADER
+========================= */
 
 .instructions-header {
-  height: 83px;
-  background: var(--cyan);
+  height: 82px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5eaf2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 55px;
 }
 
-.instructions-container {
-  max-width: 950px;
-  margin: 0 auto;
-  padding: 35px 25px 50px;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
+
+.brand-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #eaf1ff;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: #14213d;
+}
+
+.brand-tagline {
+  font-size: 12px;
+  color: #718096;
+  margin-top: 3px;
+}
+
+.header-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #eaf1ff;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.header-user {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-user strong {
+  font-size: 14px;
+  color: #14213d;
+}
+
+.header-user span {
+  font-size: 12px;
+  color: #718096;
+  margin-top: 3px;
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.instructions-container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 55px 25px 60px;
+}
+
+
+/* =========================
+   HERO SECTION
+========================= */
+
+.hero-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.hero-label {
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+.hero-title {
+  margin: 0;
+  font-size: 40px;
+  font-weight: 800;
+  color: #14213d;
+}
+
+.hero-subtitle {
+  max-width: 680px;
+  margin: 15px auto 0;
+  color: #718096;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+
+/* =========================
+   MAIN CARD
+========================= */
+
+.instructions-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 40px 45px;
+  box-shadow: 0 10px 35px rgba(30, 64, 175, 0.08);
+  border: 1px solid #e5eaf2;
+}
+
+
+/* =========================
+   PROFILE
+========================= */
 
 .profile-card {
   display: flex;
   align-items: center;
-  gap: 12px;
-  background: #ffffff;
-  padding: 8px 18px 8px 8px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  color: #111827;
+  justify-content: space-between;
+  background: transparent;
+  padding: 0 0 25px;
+  border-radius: 0;
+  box-shadow: none;
+  color: #14213d;
+  border-bottom: 1px solid #e1e8f5;
+}
+
+.profile-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 .profile-avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: #eef4ff;
-  color: #3767b0;
+  width: 58px;
+  height: 58px;
+  border-radius: 15px;
+  background: #eaf1ff;
+  color: #2563eb;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 17px;
-  font-weight: 700;
+  font-size: 19px;
+  font-weight: 800;
 }
 
 .profile-details {
   display: flex;
   flex-direction: column;
-  line-height: 1.25;
+  line-height: 1.3;
 }
 
 .profile-name {
   font-size: 18px;
-  font-weight: 700;
-  color: #111827;
+  font-weight: 800;
+  color: #14213d;
 }
 
 .profile-roll {
-  font-size: 13px;
-  font-weight: 600;
-  color: #5f6b7a;
+  font-size: 14px;
+  font-weight: 500;
+  color: #718096;
+  margin-top: 3px;
 }
 
-.instructions-card {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 35px 45px;
-  margin-top: 25px;
-  box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+.set-badge {
+  background: #eef4ff;
+  color: #14213d;
+  padding: 11px 17px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
 }
+
+
+/* =========================
+   EXAM TITLE
+========================= */
 
 .exam-title {
-  text-align: center;
-  color: #3767b0;
-  font-size: 32px;
-  margin: 0 0 8px;
+  text-align: left;
+  color: #14213d;
+  font-size: 28px;
+  margin: 30px 0 5px;
 }
 
 .exam-subtitle {
-  text-align: center;
-  color: #6b7280;
-  font-size: 18px;
-  margin-bottom: 30px;
+  text-align: left;
+  color: #718096;
+  font-size: 16px;
+  margin-bottom: 25px;
 }
+
+
+/* =========================
+   INFO BOXES
+========================= */
 
 .info-box {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  margin-bottom: 30px;
+  gap: 18px;
+  margin: 25px 0 35px;
 }
 
 .info-item {
-  background: #f4f8ff;
-  border: 1px solid #dbe8f7;
-  border-radius: 8px;
-  padding: 16px;
-  text-align: center;
+  background: #ffffff;
+  border: 1px solid #dbe5f5;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: left;
+  transition: 0.2s ease;
+}
+
+.info-item:hover {
+  border-color: #9dbcf5;
+  box-shadow: 0 5px 15px rgba(37, 99, 235, 0.08);
 }
 
 .info-item span {
   display: block;
-  color: #6b7280;
-  font-size: 14px;
-  margin-bottom: 5px;
+  color: #718096;
+  font-size: 13px;
+  margin-bottom: 7px;
 }
 
 .info-item strong {
-  color: #3767b0;
-  font-size: 18px;
+  color: #14213d;
+  font-size: 21px;
 }
 
+
+/* =========================
+   INSTRUCTIONS
+========================= */
+
 .instructions-heading {
-  color: #3767b0;
-  font-size: 22px;
-  margin: 25px 0 12px;
+  color: #14213d;
+  font-size: 21px;
+  margin: 30px 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .instructions-list {
-  padding-left: 25px;
-  line-height: 1.8;
-  color: #374151;
-  font-size: 16px;
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 50px;
+  row-gap: 16px;
+
+  color: #4a5a73;
+  font-size: 15px;
+  line-height: 1.55;
 }
 
-.warning-box {
-  background: #fff8e8;
-  border-left: 4px solid #e0a52c;
-  padding: 15px 18px;
-  margin-top: 25px;
-  color: #5f4b1f;
-  border-radius: 5px;
+.instructions-list li {
+  position: relative;
+  padding-left: 42px;
+  min-height: 34px;
 }
+
+.instructions-list li::before {
+  content: counter(list-item);
+  position: absolute;
+  left: 0;
+  top: -2px;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+
+  background: #eaf1ff;
+  color: #2563eb;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+
+/* =========================
+   WARNING
+========================= */
+
+.warning-box {
+  background: #fff9eb;
+  border: 1px solid #f3d58b;
+  border-left: 4px solid #f0a500;
+
+  padding: 17px 20px;
+  margin-top: 30px;
+
+  color: #69521c;
+  border-radius: 10px;
+
+  line-height: 1.6;
+}
+
+.warning-title {
+  display: block;
+  color: #8a6412;
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+
+/* =========================
+   AGREEMENT
+========================= */
 
 .agreement {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 30px;
-  font-size: 15px;
-  color: #374151;
+
+  margin-top: 27px;
+
+  font-size: 14px;
+  color: #4a5a73;
 }
 
 .agreement input {
   width: 18px;
   height: 18px;
+  accent-color: #2563eb;
   cursor: pointer;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
 }
 
 .start-btn {
-  display: block;
-  width: 240px;
-  margin: 30px auto 0;
-  padding: 14px;
+  width: 220px;
+  padding: 15px 20px;
+
   border: none;
-  border-radius: 8px;
-  background: var(--cyan);
+  border-radius: 10px;
+
+  background: #2563eb;
   color: #ffffff;
-  font-size: 18px;
-  font-weight: 600;
+
+  font-size: 16px;
+  font-weight: 700;
+
   cursor: pointer;
+
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.22);
+
+  transition: 0.2s ease;
 }
 
-.start-btn:hover {
-  background: var(--cyan-dark);
+.start-btn:hover:not(:disabled) {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.28);
 }
 
 .start-btn:disabled {
-  background: #aeb8c4;
+  background: #b8c4d6;
   cursor: not-allowed;
+  box-shadow: none;
 }
+
 
 .back-btn {
-  display: block;
-  margin: 15px auto 0;
-  background: transparent;
-  border: none;
-  color: #3767b0;
+  width: 220px;
+  padding: 14px 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #d6e0ef;
+  border-radius: 10px;
+
+  color: #3e506b;
+
   font-size: 15px;
+  font-weight: 600;
+
   cursor: pointer;
+
+  transition: 0.2s ease;
 }
 
-@media(max-width:700px) {
+.back-btn:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+  background: #f8fbff;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.page-footer {
+  text-align: center;
+  margin-top: 25px;
+  color: #8a9ab3;
+  font-size: 12px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width: 750px) {
+
+  .instructions-header {
+    padding: 0 20px;
+  }
+
+  .header-user {
+    display: none;
+  }
+
+  .instructions-container {
+    padding: 35px 15px 45px;
+  }
+
+  .hero-title {
+    font-size: 30px;
+  }
+
+  .hero-subtitle {
+    font-size: 15px;
+  }
+
   .instructions-card {
     padding: 25px 20px;
+    border-radius: 14px;
+  }
+
+  .profile-card {
+    align-items: flex-start;
+  }
+
+  .set-badge {
+    font-size: 12px;
+    padding: 9px 12px;
   }
 
   .info-box {
     grid-template-columns: 1fr;
   }
 
-  .exam-title {
-    font-size: 26px;
+  .instructions-list {
+    grid-template-columns: 1fr;
+  }
+
+  .button-row {
+    flex-direction: column-reverse;
+    gap: 12px;
+  }
+
+  .start-btn,
+  .back-btn {
+    width: 100%;
   }
 }
 </style>
@@ -204,32 +547,89 @@
 
 <body>
 
+<body>
+
 <div class="instructions-page">
 
-  <div class="instructions-header"></div>
+  <div class="instructions-header">
+
+    <div class="brand">
+      <div class="brand-icon">▢</div>
+
+      <div class="brand-text">
+        <div class="brand-name">EPS TOPIK</div>
+        <div class="brand-tagline">Practice Today, Build Tomorrow</div>
+      </div>
+    </div>
+
+    <div class="header-profile">
+
+      <div class="header-avatar">SL</div>
+
+      <div class="header-user">
+        <strong>Sun Lee</strong>
+        <span>2023000950</span>
+      </div>
+
+    </div>
+
+  </div>
+
 
   <div class="instructions-container">
 
-    <div class="profile-card">
-      <div class="profile-avatar">SL</div>
+    <div class="hero-section">
 
-      <div class="profile-details">
-        <div class="profile-name">Sun Lee</div>
-        <div class="profile-roll">Roll No. 2023000950</div>
+      <div class="hero-label">
+        BEFORE YOU BEGIN
+      </div>
+
+      <h1 class="hero-title">
+        Read the Instructions Carefully
+      </h1>
+
+      <p class="hero-subtitle">
+        A little preparation goes a long way. Make sure you understand
+        the rules before starting your test.
+      </p>
+
+    </div>
+    <div class="profile-card">
+
+  <div class="profile-left">
+
+    <div class="profile-avatar">
+      SL
+    </div>
+
+    <div class="profile-details">
+      <div class="profile-name">
+        Sun Lee
+      </div>
+
+      <div class="profile-roll">
+        Roll No. 2023000950
       </div>
     </div>
+
+  </div>
+
+  <div class="set-badge">
+    📋 &nbsp; Set No. 01
+  </div>
+
+</div>
 
 
     <div class="instructions-card">
 
       <h1 class="exam-title">
-        EPS TOPIK TEST EXAM
-      </h1>
+  EPS TOPIK TEST EXAM
+</h1>
 
-      <div class="exam-subtitle">
-        Set No. 01 — Exam Instructions
-      </div>
-
+<div class="exam-subtitle">
+  Set No. 01 — Exam Instructions
+</div>
 
       <div class="info-box">
 
@@ -274,11 +674,17 @@
         ⚠️ Important
       </h2>
 
-      <div class="warning-box">
-        Please make sure you are ready before starting the exam.
-        Once you click <strong>Start Exam</strong>, you will be taken to
-        the Question Navigator.
-      </div>
+     <div class="warning-box">
+
+  <span class="warning-title">
+    ⚠️ Important
+  </span>
+
+  Please make sure you are ready before starting the exam.
+  Once you click <strong>Start Exam</strong>, you will be taken to
+  the Question Navigator.
+
+</div>
 
 
       <label class="agreement">
@@ -289,17 +695,25 @@
       </label>
 
 
-      <button class="start-btn" id="startBtn" disabled>
-        Start Exam →
-      </button>
+      <div class="button-row">
 
-      <button class="back-btn" id="backBtn">
-        ← Back to Set Selection
-      </button>
+  <button class="back-btn" id="backBtn">
+    ← Back to Set Selection
+  </button>
+
+  <button class="start-btn" id="startBtn" disabled>
+    Start Exam →
+  </button>
+
+</div>
 
     </div>
 
   </div>
+  
+  <div class="page-footer">
+  Small Steps Today, Greater Opportunities Tomorrow
+</div>
 
 </div>
 
