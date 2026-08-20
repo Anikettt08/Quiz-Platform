@@ -498,7 +498,7 @@ body {
       <div class="profile-details">
 
         <div class="profile-name">
-          Sun Lee
+          Akash Bhagat
         </div>
 
         <div class="profile-roll">
@@ -543,8 +543,9 @@ body {
   <div class="nav-grid" id="listeningGrid"></div>
 </main>
 
-<button class="nav-back" id="backBtn">
+<button class="nav-back" id="backBtn" >
   ← Set Selection
+
 </button>
 
 <button class="nav-submit" id="submitBtn">
@@ -564,6 +565,13 @@ for(let i=21;i<=40;i++) document.getElementById("listeningGrid").appendChild(mak
 
 document.getElementById("backBtn").onclick=()=>window.location.href="index.html";
 document.getElementById("submitBtn").onclick=()=>alert("Please select a question to start the exam.");
+const backBtn = document.getElementById("backBtn");
+
+if (backBtn) {
+  backBtn.addEventListener("click", function () {
+    window.location.href = "set.html";
+  });
+}
 </script>
 </body>
 </html>
