@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>EPS TOPIK - Reset Admin Password</title>
+
+  <link rel="stylesheet" href="../style.css">
+
+</head>
+
+
+<body class="admin-login-body">
+
+
+<main class="admin-login-page">
+
+  <section class="admin-login-card">
+
+
+    <!-- ================= LOGO ================= -->
+
+    <a href="../index.html" class="admin-login-logo">
+
+      <div class="admin-logo-mark">
+        K
+      </div>
+
+      <div>
+
+        <h1>
+          EPS TOPIK
+        </h1>
+
+        <span>
+          ADMIN PORTAL
+        </span>
+
+      </div>
+
+    </a>
+
+
+    <!-- ================= HEADING ================= -->
+
+    <div class="admin-login-heading">
+
+      <p class="admin-eyebrow">
+        PASSWORD RESET
+      </p>
+
+      <h2>
+        Create new password
+      </h2>
+
+      <p>
+        Enter a new password for your administrator
+        account.
+      </p>
+
+    </div>
+
+
+    <!-- ================= MESSAGE ================= -->
+
+    <div
+      id="adminResetMessage"
+      class="message-box"
+    ></div>
+
+
+    <!-- ================= FORM ================= -->
+
+    <form id="adminResetPasswordForm">
+
+
+      <!-- NEW PASSWORD -->
+
+      <div class="form-group">
+
+        <label for="adminNewPassword">
+          New Password
+        </label>
+
+
+        <div class="password-box">
+
+          <input
+            type="password"
+            id="adminNewPassword"
+            placeholder="Enter new password"
+            autocomplete="new-password"
+            minlength="6"
+            required
+          >
+
+
+          <button
+            type="button"
+            class="show-password"
+            id="showAdminNewPassword"
+          >
+            Show
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- CONFIRM PASSWORD -->
+
+      <div class="form-group">
+
+        <label for="adminConfirmPassword">
+          Confirm New Password
+        </label>
+
+
+        <div class="password-box">
+
+          <input
+            type="password"
+            id="adminConfirmPassword"
+            placeholder="Re-enter new password"
+            autocomplete="new-password"
+            minlength="6"
+            required
+          >
+
+
+          <button
+            type="button"
+            class="show-password"
+            id="showAdminConfirmPassword"
+          >
+            Show
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PASSWORD REQUIREMENT -->
+
+      <div class="admin-password-requirement">
+
+        <span>
+          Password must contain at least 6 characters.
+        </span>
+
+      </div>
+
+
+      <!-- RESET BUTTON -->
+
+      <button
+        type="submit"
+        id="adminResetPasswordButton"
+        class="admin-login-submit"
+      >
+        Reset Password
+      </button>
+
+
+    </form>
+
+
+    <!-- ================= SECURITY NOTE ================= -->
+
+    <div class="admin-security-note">
+
+      <div class="admin-security-icon">
+        🔒
+      </div>
+
+      <div>
+
+        <strong>
+          Keep your account secure
+        </strong>
+
+        <p>
+          Use a strong password that you don't use
+          for other accounts.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= BACK ================= -->
+
+    <a
+      href="admin-login.html"
+      class="admin-back-home"
+    >
+      ← Back to Admin Login
+    </a>
+
+
+  </section>
+
+</main>
+
+
+
+<script>
+
+  /* =====================================================
+     SHOW / HIDE NEW PASSWORD
+     ===================================================== */
+
+  const adminNewPassword =
+    document.getElementById(
+      "adminNewPassword"
+    );
+
+
+  const showAdminNewPassword =
+    document.getElementById(
+      "showAdminNewPassword"
+    );
+
+
+  showAdminNewPassword.addEventListener(
+    "click",
+    function () {
+
+      if (
+        adminNewPassword.type ===
+        "password"
+      ) {
+
+        adminNewPassword.type =
+          "text";
+
+        this.textContent =
+          "Hide";
+
+      }
+
+      else {
+
+        adminNewPassword.type =
+          "password";
+
+        this.textContent =
+          "Show";
+
+      }
+
+    }
+  );
+
+
+
+  /* =====================================================
+     SHOW / HIDE CONFIRM PASSWORD
+     ===================================================== */
+
+  const adminConfirmPassword =
+    document.getElementById(
+      "adminConfirmPassword"
+    );
+
+
+  const showAdminConfirmPassword =
+    document.getElementById(
+      "showAdminConfirmPassword"
+    );
+
+
+  showAdminConfirmPassword.addEventListener(
+    "click",
+    function () {
+
+      if (
+        adminConfirmPassword.type ===
+        "password"
+      ) {
+
+        adminConfirmPassword.type =
+          "text";
+
+        this.textContent =
+          "Hide";
+
+      }
+
+      else {
+
+        adminConfirmPassword.type =
+          "password";
+
+        this.textContent =
+          "Show";
+
+      }
+
+    }
+  );
+
+
+
+  /* =====================================================
+     RESET PASSWORD
+     ===================================================== */
+
+  const adminResetPasswordForm =
+    document.getElementById(
+      "adminResetPasswordForm"
+    );
+
+
+  adminResetPasswordForm.addEventListener(
+    "submit",
+    function (event) {
+
+      event.preventDefault();
+
+
+      const newPassword =
+        adminNewPassword.value;
+
+
+      const confirmPassword =
+        adminConfirmPassword.value;
+
+
+      /* Password length */
+
+      if (newPassword.length < 6) {
+
+        alert(
+          "Password must contain at least 6 characters."
+        );
+
+        return;
+
+      }
+
+
+      /* Password matching */
+
+      if (
+        newPassword !==
+        confirmPassword
+      ) {
+
+        alert(
+          "Passwords do not match."
+        );
+
+        return;
+
+      }
+
+
+      /*
+        =============================================
+        BACKEND WILL BE CONNECTED HERE
+        =============================================
+
+        Later we will send something like:
+
+        {
+          email: admin email,
+          password: newPassword
+        }
+
+        to the admin reset-password API.
+
+        We will only redirect after backend confirms
+        that the password was successfully changed.
+      */
+
+
+      alert(
+        "Password reset successfully!"
+      );
+
+
+      window.location.href =
+        "admin-login.html";
+
+    }
+  );
+
+</script>
+
+
+</body>
+
+</html>

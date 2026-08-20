@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>EPS TOPIK - Admin Login</title>
+
+  <link rel="stylesheet" href="../style.css">
+
+</head>
+
+
+<body class="admin-login-body">
+
+
+<main class="admin-login-page">
+
+
+  <section class="admin-login-card">
+
+
+    <!-- ================= BRAND ================= -->
+
+    <a href="../index.html" class="admin-login-logo">
+
+      <div class="admin-logo-mark">
+        K
+      </div>
+
+      <div>
+
+        <h1>
+          EPS TOPIK
+        </h1>
+
+        <span>
+          ADMIN PORTAL
+        </span>
+
+      </div>
+
+    </a>
+
+
+    <!-- ================= HEADING ================= -->
+
+    <div class="admin-login-heading">
+
+      <p class="admin-eyebrow">
+        ADMINISTRATION
+      </p>
+
+      <h2>
+        Welcome back
+      </h2>
+
+      <p>
+        Sign in with your administrator credentials
+        to manage the EPS TOPIK exam platform.
+      </p>
+
+    </div>
+
+
+    <!-- ================= MESSAGE ================= -->
+
+    <div
+      id="adminMessageBox"
+      class="message-box"
+    ></div>
+
+
+    <!-- ================= LOGIN FORM ================= -->
+
+    <form id="adminLoginForm">
+
+
+      <!-- EMAIL -->
+
+      <div class="form-group">
+
+        <label for="adminEmail">
+          Admin Email
+        </label>
+
+        <input
+          type="email"
+          id="adminEmail"
+          placeholder="Enter administrator email"
+          autocomplete="email"
+          required
+        >
+
+      </div>
+
+
+      <!-- PASSWORD -->
+
+      <div class="form-group">
+
+        <label for="adminPassword">
+          Password
+        </label>
+
+
+        <div class="password-box">
+
+          <input
+            type="password"
+            id="adminPassword"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          >
+
+
+          <button
+            type="button"
+            class="show-password"
+            id="adminPasswordToggle"
+          >
+            Show
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- OPTIONS -->
+
+      <div class="admin-login-options">
+
+        <label class="admin-remember">
+
+          <input
+            type="checkbox"
+            id="adminRemember"
+          >
+
+          <span>
+            Remember me
+          </span>
+
+        </label>
+
+
+        <a href="ad-forgot-pass.html">
+          Forgot password?
+        </a>
+
+      </div>
+
+
+      <!-- LOGIN BUTTON -->
+
+      <button
+        type="submit"
+        id="adminLoginButton"
+        class="admin-login-submit"
+      >
+        Sign in to Admin Portal
+      </button>
+
+
+    </form>
+
+
+    <!-- ================= SECURITY MESSAGE ================= -->
+
+    <div class="admin-security-note">
+
+      <div class="admin-security-icon">
+        🔒
+      </div>
+
+      <div>
+
+        <strong>
+          Restricted Access
+        </strong>
+
+        <p>
+          This portal is for authorized
+          administrators only.
+        </p>
+
+      </div>
+
+    </div>
+
+
+   
+
+    <!-- ================= HOME ================= -->
+
+    <a
+      href="../index.html"
+      class="admin-back-home"
+    >
+      ← Back to website
+    </a>
+
+
+  </section>
+
+
+</main>
+
+
+<script>
+
+  /* =====================================================
+     SHOW / HIDE ADMIN PASSWORD
+     ===================================================== */
+
+  const adminPassword =
+    document.getElementById("adminPassword");
+
+  const adminPasswordToggle =
+    document.getElementById("adminPasswordToggle");
+
+
+  adminPasswordToggle.addEventListener(
+    "click",
+    function () {
+
+      if (adminPassword.type === "password") {
+
+        adminPassword.type = "text";
+
+        adminPasswordToggle.textContent =
+          "Hide";
+
+      } else {
+
+        adminPassword.type = "password";
+
+        adminPasswordToggle.textContent =
+          "Show";
+
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+     TEMPORARY ADMIN LOGIN
+     ===================================================== */
+
+  const adminLoginForm =
+    document.getElementById("adminLoginForm");
+
+
+  adminLoginForm.addEventListener(
+    "submit",
+    function (event) {
+
+      event.preventDefault();
+
+
+      const email =
+        document
+          .getElementById("adminEmail")
+          .value
+          .trim();
+
+
+      const password =
+        document
+          .getElementById("adminPassword")
+          .value;
+
+
+      if (!email || !password) {
+
+        alert(
+          "Please enter admin email and password."
+        );
+
+        return;
+
+      }
+
+
+      /*
+        IMPORTANT:
+
+        Backend admin authentication
+        will be connected here.
+
+        Do NOT use hardcoded admin
+        credentials in production.
+      */
+
+
+      window.location.href =
+        "admin-dashboard.html";
+
+    }
+  );
+
+</script>
+
+
+</body>
+
+</html>

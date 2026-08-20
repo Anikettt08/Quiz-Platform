@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>EPS TOPIK - Admin Password Recovery</title>
+
+  <link rel="stylesheet" href="../style.css">
+
+</head>
+
+
+<body class="admin-login-body">
+
+
+<main class="admin-login-page">
+
+  <section class="admin-login-card">
+
+
+    <!-- ================= LOGO ================= -->
+
+    <a href="../index.html" class="admin-login-logo">
+
+      <div class="admin-logo-mark">
+        K
+      </div>
+
+      <div>
+
+        <h1>
+          EPS TOPIK
+        </h1>
+
+        <span>
+          ADMIN PORTAL
+        </span>
+
+      </div>
+
+    </a>
+
+
+    <!-- ================= HEADING ================= -->
+
+    <div class="admin-login-heading">
+
+      <p class="admin-eyebrow">
+        PASSWORD RECOVERY
+      </p>
+
+      <h2>
+        Forgot password?
+      </h2>
+
+      <p>
+        Enter your registered administrator email.
+        We will send a verification OTP to reset
+        your password.
+      </p>
+
+    </div>
+
+
+    <!-- ================= MESSAGE ================= -->
+
+    <div
+      id="adminForgotMessage"
+      class="message-box"
+    ></div>
+
+
+    <!-- ================= FORM ================= -->
+
+    <form id="adminForgotPasswordForm">
+
+
+      <div class="form-group">
+
+        <label for="adminForgotEmail">
+          Admin Email
+        </label>
+
+        <input
+          type="email"
+          id="adminForgotEmail"
+          placeholder="Enter registered admin email"
+          autocomplete="email"
+          required
+        >
+
+      </div>
+
+
+      <button
+        type="submit"
+        id="adminSendOtpButton"
+        class="admin-login-submit"
+      >
+        Send OTP
+      </button>
+
+
+    </form>
+
+
+    <!-- ================= INFO ================= -->
+
+    <div class="admin-security-note">
+
+      <div class="admin-security-icon">
+        🔒
+      </div>
+
+      <div>
+
+        <strong>
+          Secure password recovery
+        </strong>
+
+        <p>
+          A verification code will only be sent
+          to a registered administrator account.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= BACK ================= -->
+
+    <div class="admin-user-login">
+
+      <span>
+        Remember your password?
+      </span>
+
+      <a href="admin-login.html">
+        Sign in
+      </a>
+
+    </div>
+
+
+    <a
+      href="admin-login.html"
+      class="admin-back-home"
+    >
+      ← Back to Admin Login
+    </a>
+
+
+  </section>
+
+</main>
+
+
+<script>
+
+  const adminForgotPasswordForm =
+    document.getElementById(
+      "adminForgotPasswordForm"
+    );
+
+
+  adminForgotPasswordForm.addEventListener(
+    "submit",
+    function (event) {
+
+      event.preventDefault();
+
+
+      const email =
+        document
+          .getElementById("adminForgotEmail")
+          .value
+          .trim();
+
+
+      if (!email) {
+
+        alert(
+          "Please enter your registered admin email."
+        );
+
+        return;
+
+      }
+
+
+      /*
+        TEMPORARY FRONTEND FLOW
+
+        Later:
+        1. Send email to backend
+        2. Backend sends OTP
+        3. Redirect only when successful
+      */
+
+
+      sessionStorage.setItem(
+        "admin_reset_email",
+        email
+      );
+
+
+      window.location.href =
+        "ad-verify-otp.html";
+
+    }
+  );
+
+</script>
+
+
+</body>
+
+</html>

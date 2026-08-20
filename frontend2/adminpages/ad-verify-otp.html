@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>EPS TOPIK - Admin Verify OTP</title>
+
+  <link rel="stylesheet" href="../style.css">
+
+</head>
+
+
+<body class="admin-login-body">
+
+
+<main class="admin-login-page">
+
+  <section class="admin-login-card">
+
+
+    <!-- ================= LOGO ================= -->
+
+    <a href="../index.html" class="admin-login-logo">
+
+      <div class="admin-logo-mark">
+        K
+      </div>
+
+      <div>
+
+        <h1>
+          EPS TOPIK
+        </h1>
+
+        <span>
+          ADMIN PORTAL
+        </span>
+
+      </div>
+
+    </a>
+
+
+    <!-- ================= HEADING ================= -->
+
+    <div class="admin-login-heading">
+
+      <p class="admin-eyebrow">
+        OTP VERIFICATION
+      </p>
+
+      <h2>
+        Verify OTP
+      </h2>
+
+      <p>
+        Enter the 6-digit verification code sent
+        to your registered administrator email.
+      </p>
+
+    </div>
+
+
+    <!-- ================= MESSAGE ================= -->
+
+    <div
+      id="adminOtpMessage"
+      class="message-box"
+    ></div>
+
+
+    <!-- ================= FORM ================= -->
+
+    <form id="adminVerifyOtpForm">
+
+
+      <div class="form-group">
+
+        <label for="adminOtp">
+          Verification Code
+        </label>
+
+        <input
+          type="text"
+          id="adminOtp"
+          class="otp-input"
+          placeholder="000000"
+          maxlength="6"
+          inputmode="numeric"
+          autocomplete="one-time-code"
+          required
+        >
+
+      </div>
+
+
+      <a
+        type="submit"
+        id="adminVerifyOtpButton"
+        class="admin-login-submit"
+        href="ad-reset-pass.html"
+      >
+        Verify OTP
+      
+
+     </a>
+    </form>
+
+
+    <!-- ================= RESEND ================= -->
+
+    <div class="admin-user-login">
+
+      <span>
+        Didn't receive the code?
+      </span>
+
+      <a href="ad-forgot-pass.html">
+        Send again
+      </a>
+
+    </div>
+
+
+    <!-- ================= BACK ================= -->
+
+    <a
+      href="ad-forgot-pass.html"
+      class="admin-back-home"
+    >
+      ← Change Email
+    </a>
+
+
+  </section>
+
+</main>
+
+
+<script>
+
+  const adminOtpInput =
+    document.getElementById("adminOtp");
+
+
+  adminOtpInput.addEventListener(
+    "input",
+    function () {
+
+      this.value =
+        this.value
+          .replace(/\D/g, "")
+          .slice(0, 6);
+
+    }
+  );
+
+
+  const adminVerifyOtpForm =
+    document.getElementById(
+      "adminVerifyOtpForm"
+    );
+
+
+  adminVerifyOtpForm.addEventListener(
+    "submit",
+    function (event) {
+
+      event.preventDefault();
+
+
+      const otp =
+        adminOtpInput.value.trim();
+
+
+      if (otp.length !== 6) {
+
+        alert(
+          "Please enter the complete 6-digit OTP."
+        );
+
+        return;
+
+      }
+
+
+      /*
+        TEMPORARY FRONTEND FLOW
+
+        Later:
+        1. Send OTP + admin email to backend
+        2. Verify response
+        3. Redirect only if OTP is valid
+      */
+
+
+      window.location.href =
+        "ad-reset-password.html";
+
+    }
+  );
+
+</script>
+
+
+</body>
+
+</html>
