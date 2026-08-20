@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | EPS TOPIK</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <div class="admin-layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="sidebar-logo">
+                <div class="logo-icon">E</div>
+                <div>
+                    <h2>EPS TOPIK</h2>
+                    <span>Admin Panel</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <p class="nav-title">MAIN</p>
+
+                <a href="#" class="nav-item active" data-section="dashboard">
+                    <span class="nav-icon">▦</span>
+                    Dashboard
+                </a>
+
+                <a href="#" class="nav-item" data-section="users">
+                    <span class="nav-icon">♙</span>
+                    Users
+                </a>
+
+                <a href="#" class="nav-item" data-section="quizzes">
+                    <span class="nav-icon">▤</span>
+                    Quizzes
+                </a>
+
+                <a href="#" class="nav-item" data-section="questions">
+                    <span class="nav-icon">?</span>
+                    Questions
+                </a>
+
+                <a href="#" class="nav-item" data-section="results">
+                    <span class="nav-icon">◒</span>
+                    Results
+                </a>
+
+                <p class="nav-title">SYSTEM</p>
+
+                <a href="#" class="nav-item" data-section="settings">
+                    <span class="nav-icon">⚙</span>
+                    Settings
+                </a>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <div class="admin-mini-profile">
+                    <div class="profile-avatar">A</div>
+                    <div class="profile-info">
+                        <strong>Administrator</strong>
+                        <span>Admin</span>
+                    </div>
+                </div>
+
+                <button class="logout-btn" id="logoutBtn">
+                    <span>↪</span>
+                    Logout
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Topbar -->
+            <header class="topbar">
+
+                <div class="mobile-menu" id="mobileMenu">
+                    ☰
+                </div>
+
+                <div class="page-heading">
+                    <h1 id="pageTitle">Dashboard</h1>
+                    <p id="pageSubtitle">
+                        Overview of your EPS TOPIK platform
+                    </p>
+                </div>
+
+                <div class="topbar-right">
+
+                    <button class="notification-btn" title="Notifications">
+                        ♢
+                        <span class="notification-dot"></span>
+                    </button>
+
+                    <div class="top-profile">
+                        <div class="profile-avatar">A</div>
+                        <div>
+                            <strong>Administrator</strong>
+                            <span>Admin</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- Dashboard Section -->
+            <section class="content-section active" id="dashboard">
+
+                <div class="welcome-card">
+
+                    <div>
+                        <span class="welcome-label">WELCOME BACK</span>
+                        <h2>Good morning, Administrator 👋</h2>
+                        <p>
+                            Here's what's happening on your EPS TOPIK platform today.
+                        </p>
+                    </div>
+
+                    <div class="welcome-decoration">
+                        EPS
+                    </div>
+
+                </div>
+
+
+                <!-- Statistics -->
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <div class="stat-icon users-icon">♙</div>
+                        <div class="stat-content">
+                            <span>Total Users</span>
+                            <h3>1,248</h3>
+                            <small class="positive">↑ 12.5% <em>this month</em></small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon quiz-icon">▤</div>
+                        <div class="stat-content">
+                            <span>Total Quizzes</span>
+                            <h3>36</h3>
+                            <small class="positive">↑ 8.2% <em>this month</em></small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon question-icon">?</div>
+                        <div class="stat-content">
+                            <span>Total Questions</span>
+                            <h3>582</h3>
+                            <small class="positive">↑ 5.7% <em>this month</em></small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon attempt-icon">◒</div>
+                        <div class="stat-content">
+                            <span>Total Attempts</span>
+                            <h3>4,821</h3>
+                            <small class="positive">↑ 18.4% <em>this month</em></small>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- Dashboard Grid -->
+                <div class="dashboard-grid">
+
+                    <!-- Recent Activity -->
+                    <div class="panel recent-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h3>Recent Activity</h3>
+                                <p>Latest activity from users</p>
+                            </div>
+
+                            <button class="view-all-btn">
+                                View All
+                            </button>
+                        </div>
+
+                        <div class="activity-list">
+
+                            <div class="activity-item">
+
+                                <div class="activity-avatar">R</div>
+
+                                <div class="activity-details">
+                                    <strong>Rahul Sharma</strong>
+                                    <span>Completed EPS TOPIK Reading Test</span>
+                                </div>
+
+                                <div class="activity-score">
+                                    <strong>85%</strong>
+                                    <span>2 min ago</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="activity-item">
+
+                                <div class="activity-avatar">P</div>
+
+                                <div class="activity-details">
+                                    <strong>Priya Das</strong>
+                                    <span>Completed Vocabulary Quiz</span>
+                                </div>
+
+                                <div class="activity-score">
+                                    <strong>92%</strong>
+                                    <span>18 min ago</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="activity-item">
+
+                                <div class="activity-avatar">A</div>
+
+                                <div class="activity-details">
+                                    <strong>Ankit Roy</strong>
+                                    <span>Registered a new account</span>
+                                </div>
+
+                                <div class="activity-score">
+                                    <strong>New</strong>
+                                    <span>34 min ago</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="activity-item">
+
+                                <div class="activity-avatar">S</div>
+
+                                <div class="activity-details">
+                                    <strong>Sneha Gupta</strong>
+                                    <span>Completed Grammar Quiz</span>
+                                </div>
+
+                                <div class="activity-score">
+                                    <strong>78%</strong>
+                                    <span>1 hr ago</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Quick Actions -->
+                    <div class="panel quick-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h3>Quick Actions</h3>
+                                <p>Manage your platform</p>
+                            </div>
+                        </div>
+
+                        <div class="quick-actions">
+
+                            <button class="quick-action" data-action="quiz">
+                                <span class="quick-icon">+</span>
+                                <div>
+                                    <strong>Create Quiz</strong>
+                                    <small>Add a new quiz</small>
+                                </div>
+                            </button>
+
+                            <button class="quick-action" data-action="question">
+                                <span class="quick-icon">?</span>
+                                <div>
+                                    <strong>Add Question</strong>
+                                    <small>Create a question</small>
+                                </div>
+                            </button>
+
+                            <button class="quick-action" data-action="user">
+                                <span class="quick-icon">♙</span>
+                                <div>
+                                    <strong>Manage Users</strong>
+                                    <small>View all users</small>
+                                </div>
+                            </button>
+
+                            <button class="quick-action" data-action="results">
+                                <span class="quick-icon">◒</span>
+                                <div>
+                                    <strong>View Results</strong>
+                                    <small>Check performance</small>
+                                </div>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Users Section -->
+            <section class="content-section" id="users">
+
+                <div class="section-header">
+                    <div>
+                        <h2>User Management</h2>
+                        <p>Manage registered users on the platform.</p>
+                    </div>
+
+                    <button class="primary-btn">
+                        + Add User
+                    </button>
+                </div>
+
+                <div class="panel">
+
+                    <div class="table-toolbar">
+                        <input
+                            type="text"
+                            placeholder="Search users..."
+                            id="userSearch"
+                        >
+                    </div>
+
+                    <div class="table-container">
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Joined</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="usersTable">
+
+                                <tr>
+                                    <td>
+                                        <div class="table-user">
+                                            <div class="table-avatar">R</div>
+                                            Rahul Sharma
+                                        </div>
+                                    </td>
+                                    <td>rahul@example.com</td>
+                                    <td><span class="status active-status">Active</span></td>
+                                    <td>20 Aug 2026</td>
+                                    <td>
+                                        <button class="table-action">View</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="table-user">
+                                            <div class="table-avatar">P</div>
+                                            Priya Das
+                                        </div>
+                                    </td>
+                                    <td>priya@example.com</td>
+                                    <td><span class="status active-status">Active</span></td>
+                                    <td>19 Aug 2026</td>
+                                    <td>
+                                        <button class="table-action">View</button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Quizzes Section -->
+            <section class="content-section" id="quizzes">
+
+                <div class="section-header">
+                    <div>
+                        <h2>Quiz Management</h2>
+                        <p>Create and manage quizzes.</p>
+                    </div>
+
+                    <button class="primary-btn">
+                        + Create Quiz
+                    </button>
+                </div>
+
+                <div class="empty-state panel">
+                    <div class="empty-icon">▤</div>
+                    <h3>Quiz Management</h3>
+                    <p>Your quizzes will appear here once connected to the backend.</p>
+                </div>
+
+            </section>
+
+
+            <!-- Questions Section -->
+            <section class="content-section" id="questions">
+
+                <div class="section-header">
+                    <div>
+                        <h2>Question Management</h2>
+                        <p>Create and manage exam questions.</p>
+                    </div>
+
+                    <button class="primary-btn">
+                        + Add Question
+                    </button>
+                </div>
+
+                <div class="empty-state panel">
+                    <div class="empty-icon">?</div>
+                    <h3>Question Management</h3>
+                    <p>Your questions will appear here once connected to the backend.</p>
+                </div>
+
+            </section>
+
+
+            <!-- Results Section -->
+            <section class="content-section" id="results">
+
+                <div class="section-header">
+                    <div>
+                        <h2>Results & Analytics</h2>
+                        <p>Monitor user performance and quiz results.</p>
+                    </div>
+                </div>
+
+                <div class="results-cards">
+
+                    <div class="panel result-box">
+                        <span>Average Score</span>
+                        <strong>78.6%</strong>
+                    </div>
+
+                    <div class="panel result-box">
+                        <span>Pass Rate</span>
+                        <strong>72.4%</strong>
+                    </div>
+
+                    <div class="panel result-box">
+                        <span>Today's Attempts</span>
+                        <strong>184</strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Settings Section -->
+            <section class="content-section" id="settings">
+
+                <div class="section-header">
+                    <div>
+                        <h2>Settings</h2>
+                        <p>Manage your administrator settings.</p>
+                    </div>
+                </div>
+
+                <div class="panel settings-panel">
+
+                    <h3>Administrator Settings</h3>
+
+                    <label>
+                        Admin Name
+                        <input type="text" value="Administrator">
+                    </label>
+
+                    <label>
+                        Email
+                        <input type="email" value="admin@example.com">
+                    </label>
+
+                    <button class="primary-btn">
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="admin.js"></script>
+
+</body>
+</html>
