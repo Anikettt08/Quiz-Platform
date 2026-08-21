@@ -43,15 +43,33 @@
     <div class="question-panel">
       <div class="prompt" id="prompt"></div>
       <div class="content-row">
-        <div class="media-panel" id="mediaPanel">
-          <img id="mediaImage" alt="Question visual">
-          <div class="audio-placeholder hidden" id="audioPlaceholder">
-            <button id="audioButton">▶</button>
-            <span>Listen to the question</span>
-          </div>
-        </div>
-        <div class="options" id="options"></div>
-      </div>
+
+  <div class="media-panel" id="mediaPanel">
+
+    <!-- Question Text -->
+    <div id="mediaText" class="media-text hidden"></div>
+
+    <!-- Question Image -->
+    <img
+      id="mediaImage"
+      class="hidden"
+      alt="Question visual"
+    >
+
+    <!-- Question Audio -->
+    <div
+      class="audio-placeholder hidden"
+      id="audioPlaceholder"
+    >
+      <button id="audioButton">▶</button>
+      <span>Listen to the question</span>
+    </div>
+
+  </div>
+
+  <div class="options" id="options"></div>
+
+</div>
     </div>
 
     <div class="controls">
