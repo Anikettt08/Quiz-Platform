@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>EPS TOPIK - Create Quiz</title>
+
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+
+<body class="admin-panel-body">
+
+
+<!-- =====================================================
+     SIDEBAR
+     ===================================================== -->
+
+<aside class="admin-sidebar">
+
+  <a href="admin-dashboard.html" class="admin-sidebar-brand">
+
+    <div class="admin-sidebar-logo">
+      K
+    </div>
+
+    <div>
+      <h2>EPS TOPIK</h2>
+      <span>ADMIN PORTAL</span>
+    </div>
+
+  </a>
+
+
+  <nav class="admin-sidebar-nav">
+
+    <a href="admin-dashboard.html">
+      <span>⌂</span>
+      Dashboard
+    </a>
+
+    <a href="admin-tests.html" class="active">
+      <span>▣</span>
+      Tests
+    </a>
+
+    <a href="admin-students.html">
+      <span>♙</span>
+      Students
+    </a>
+
+    <a href="admin-results.html">
+      <span>▤</span>
+      Results
+    </a>
+
+    <a href="admin-payments.html">
+      <span>₹</span>
+      Payments
+    </a>
+
+  </nav>
+
+
+  <div class="admin-sidebar-bottom">
+
+    <a href="admin-login.html">
+      ← Logout
+    </a>
+
+  </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+     ===================================================== -->
+
+<main class="admin-main">
+
+
+  <!-- ================= HEADER ================= -->
+
+  <header class="admin-topbar">
+
+    <div>
+
+      <span class="admin-page-eyebrow">
+        TEST MANAGEMENT
+      </span>
+
+      <h1>Create New Quiz</h1>
+
+    </div>
+
+
+    <div class="admin-topbar-actions">
+
+      <button
+        type="button"
+        class="admin-outline-btn"
+        onclick="saveQuizDraft()"
+      >
+        Save Draft
+      </button>
+
+      <button
+        type="button"
+        class="admin-primary-btn"
+        onclick="publishQuiz()"
+      >
+        Publish Quiz
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <div class="admin-create-container">
+
+
+    <!-- =================================================
+         BASIC QUIZ INFORMATION
+         ================================================= -->
+
+    <section class="admin-content-card">
+
+      <div class="admin-card-heading">
+
+        <div>
+
+          <span class="admin-section-number">
+            01
+          </span>
+
+          <div>
+
+            <h2>Quiz Information</h2>
+
+            <p>
+              Configure the basic settings for this test.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="admin-form-grid">
+
+
+        <!-- TEST NAME -->
+
+        <div class="admin-field admin-field-wide">
+
+          <label for="quizTitle">
+            Test Name
+          </label>
+
+          <input
+            type="text"
+            id="quizTitle"
+            placeholder="Example: EPS TOPIK Practice Test 01"
+            required
+          >
+
+        </div>
+
+
+        <!-- SET NUMBER -->
+
+        <div class="admin-field">
+
+          <label for="quizSetNumber">
+            Set Number
+          </label>
+
+          <input
+            type="number"
+            id="quizSetNumber"
+            placeholder="1"
+            min="1"
+            required
+          >
+
+        </div>
+
+
+        <!-- DURATION -->
+
+        <div class="admin-field">
+
+          <label for="quizDuration">
+            Duration
+          </label>
+
+          <div class="admin-input-suffix">
+
+            <input
+              type="number"
+              id="quizDuration"
+              placeholder="50"
+              min="1"
+              required
+            >
+
+            <span>minutes</span>
+
+          </div>
+
+        </div>
+
+
+        <!-- TOTAL MARKS -->
+
+        <div class="admin-field">
+
+          <label for="quizTotalMarks">
+            Total Marks
+          </label>
+
+          <input
+            type="number"
+            id="quizTotalMarks"
+            placeholder="200"
+            min="1"
+          >
+
+        </div>
+
+
+        <!-- PASS MARKS -->
+
+        <div class="admin-field">
+
+          <label for="quizPassMarks">
+            Pass Marks
+          </label>
+
+          <input
+            type="number"
+            id="quizPassMarks"
+            placeholder="80"
+            min="0"
+          >
+
+        </div>
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="admin-field admin-field-full">
+
+          <label for="quizDescription">
+            Description
+          </label>
+
+          <textarea
+            id="quizDescription"
+            rows="4"
+            placeholder="Enter a short description of this test..."
+          ></textarea>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         QUESTION MANAGEMENT
+         ================================================= -->
+
+    <section class="admin-content-card">
+
+
+      <div class="admin-card-heading admin-question-heading">
+
+        <div>
+
+          <span class="admin-section-number">
+            02
+          </span>
+
+          <div>
+
+            <h2>Questions</h2>
+
+            <p>
+              Add reading and listening questions.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="admin-primary-btn"
+          onclick="addQuestion()"
+        >
+          + Add Question
+        </button>
+
+      </div>
+
+
+
+      <!-- QUESTION COUNT -->
+
+      <div class="admin-question-summary">
+
+        <div>
+
+          <span>Total Questions</span>
+
+          <strong id="totalQuestionCount">
+            0
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>Reading</span>
+
+          <strong id="readingQuestionCount">
+            0
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>Listening</span>
+
+          <strong id="listeningQuestionCount">
+            0
+          </strong>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- QUESTIONS INSERTED HERE -->
+
+      <div id="questionContainer">
+
+        <div
+          class="admin-empty-questions"
+          id="emptyQuestionMessage"
+        >
+
+          <div class="admin-empty-icon">
+            +
+          </div>
+
+          <h3>No questions added yet</h3>
+
+          <p>
+            Start building your quiz by adding
+            the first question.
+          </p>
+
+          <button
+            type="button"
+            class="admin-outline-btn"
+            onclick="addQuestion()"
+          >
+            + Add First Question
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         QUIZ SETTINGS
+         ================================================= -->
+
+    <section class="admin-content-card">
+
+
+      <div class="admin-card-heading">
+
+        <div>
+
+          <span class="admin-section-number">
+            03
+          </span>
+
+          <div>
+
+            <h2>Quiz Settings</h2>
+
+            <p>
+              Configure student access and test behaviour.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="admin-settings-list">
+
+
+        <label class="admin-setting-row">
+
+          <div>
+
+            <strong>
+              Show results immediately
+            </strong>
+
+            <span>
+              Students can see their result after submitting.
+            </span>
+
+          </div>
+
+          <input
+            type="checkbox"
+            id="showResults"
+            checked
+          >
+
+        </label>
+
+
+        <label class="admin-setting-row">
+
+          <div>
+
+            <strong>
+              Allow retake
+            </strong>
+
+            <span>
+              Students can attempt this test again.
+            </span>
+
+          </div>
+
+          <input
+            type="checkbox"
+            id="allowRetake"
+            checked
+          >
+
+        </label>
+
+
+        <label class="admin-setting-row">
+
+          <div>
+
+            <strong>
+              Subscription required
+            </strong>
+
+            <span>
+              Only subscribed students can access this test.
+            </span>
+
+          </div>
+
+          <input
+            type="checkbox"
+            id="subscriptionRequired"
+          >
+
+        </label>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         BOTTOM ACTIONS
+         ================================================= -->
+
+    <div class="admin-create-bottom">
+
+      <a
+        href="admin-tests.html"
+        class="admin-cancel-link"
+      >
+        Cancel
+      </a>
+
+
+      <div>
+
+        <button
+          type="button"
+          class="admin-outline-btn"
+          onclick="saveQuizDraft()"
+        >
+          Save as Draft
+        </button>
+
+        <button
+          type="button"
+          class="admin-primary-btn"
+          onclick="publishQuiz()"
+        >
+          Publish Quiz →
+        </button>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
+
+<script>
+
+let questionCount = 0;
+
+
+/* =========================================================
+   ADD QUESTION
+   ========================================================= */
+
+function addQuestion() {
+
+  questionCount++;
+
+
+  const emptyMessage =
+    document.getElementById(
+      "emptyQuestionMessage"
+    );
+
+
+  if (emptyMessage) {
+
+    emptyMessage.style.display =
+      "none";
+
+  }
+
+
+  const container =
+    document.getElementById(
+      "questionContainer"
+    );
+
+
+  const question =
+    document.createElement("div");
+
+
+  question.className =
+    "admin-question-card";
+
+
+  question.dataset.questionId =
+    questionCount;
+
+
+  question.innerHTML = `
+
+    <div class="admin-question-card-header">
+
+      <div>
+
+        <span class="admin-question-number">
+          QUESTION ${questionCount}
+        </span>
+
+        <h3>
+          Question ${questionCount}
+        </h3>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="admin-delete-question"
+        onclick="removeQuestion(this)"
+      >
+        Delete
+      </button>
+
+    </div>
+
+
+
+    <div class="admin-form-grid">
+
+
+      <!-- QUESTION TYPE -->
+
+      <div class="admin-field">
+
+        <label>
+          Section
+        </label>
+
+        <select
+          class="question-section"
+          onchange="handleQuestionType(this)"
+        >
+
+          <option value="reading">
+            Reading
+          </option>
+
+          <option value="listening">
+            Listening
+          </option>
+
+        </select>
+
+      </div>
+
+
+
+      <!-- MARKS -->
+
+      <div class="admin-field">
+
+        <label>
+          Marks
+        </label>
+
+        <input
+          type="number"
+          class="question-marks"
+          value="5"
+          min="1"
+        >
+
+      </div>
+
+
+
+      <!-- QUESTION -->
+
+      <div class="admin-field admin-field-full">
+
+        <label>
+          Question
+        </label>
+
+        <textarea
+          class="question-text"
+          rows="3"
+          placeholder="Enter question..."
+          required
+        ></textarea>
+
+      </div>
+
+
+
+      <!-- IMAGE -->
+
+      <div class="admin-field">
+
+        <label>
+          Question Image
+          <span class="admin-optional">
+            Optional
+          </span>
+        </label>
+
+        <input
+          type="file"
+          class="question-image"
+          accept="image/png,image/jpeg,image/webp"
+        >
+
+      </div>
+
+
+
+      <!-- AUDIO -->
+
+      <div
+        class="admin-field question-audio-field"
+        style="display:none;"
+      >
+
+        <label>
+          Listening Audio
+        </label>
+
+        <input
+          type="file"
+          class="question-audio"
+          accept="audio/*"
+        >
+
+      </div>
+
+
+
+      <!-- OPTIONS -->
+
+      <div class="admin-field admin-field-full">
+
+        <label>
+          Answer Options
+        </label>
+
+
+        <div class="admin-options-grid">
+
+
+          <div class="admin-option-input">
+
+            <span>A</span>
+
+            <input
+              type="text"
+              class="option-a"
+              placeholder="Option A"
+            >
+
+          </div>
+
+
+          <div class="admin-option-input">
+
+            <span>B</span>
+
+            <input
+              type="text"
+              class="option-b"
+              placeholder="Option B"
+            >
+
+          </div>
+
+
+          <div class="admin-option-input">
+
+            <span>C</span>
+
+            <input
+              type="text"
+              class="option-c"
+              placeholder="Option C"
+            >
+
+          </div>
+
+
+          <div class="admin-option-input">
+
+            <span>D</span>
+
+            <input
+              type="text"
+              class="option-d"
+              placeholder="Option D"
+            >
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+
+      <!-- CORRECT ANSWER -->
+
+      <div class="admin-field">
+
+        <label>
+          Correct Answer
+        </label>
+
+        <select class="correct-answer">
+
+          <option value="">
+            Select correct answer
+          </option>
+
+          <option value="A">
+            Option A
+          </option>
+
+          <option value="B">
+            Option B
+          </option>
+
+          <option value="C">
+            Option C
+          </option>
+
+          <option value="D">
+            Option D
+          </option>
+
+        </select>
+
+      </div>
+
+
+    </div>
+
+  `;
+
+
+  container.appendChild(
+    question
+  );
+
+
+  updateQuestionStats();
+
+}
+
+
+
+/* =========================================================
+   REMOVE QUESTION
+   ========================================================= */
+
+function removeQuestion(button) {
+
+  const confirmDelete =
+    confirm(
+      "Delete this question?"
+    );
+
+
+  if (!confirmDelete) {
+    return;
+  }
+
+
+  const questionCard =
+    button.closest(
+      ".admin-question-card"
+    );
+
+
+  questionCard.remove();
+
+
+  renumberQuestions();
+
+  updateQuestionStats();
+
+}
+
+
+
+/* =========================================================
+   RENUMBER QUESTIONS
+   ========================================================= */
+
+function renumberQuestions() {
+
+  const questions =
+    document.querySelectorAll(
+      ".admin-question-card"
+    );
+
+
+  questions.forEach(
+    function (question, index) {
+
+      question.querySelector(
+        ".admin-question-number"
+      ).textContent =
+        `QUESTION ${index + 1}`;
+
+
+      question.querySelector(
+        "h3"
+      ).textContent =
+        `Question ${index + 1}`;
+
+    }
+  );
+
+
+  if (questions.length === 0) {
+
+    const emptyMessage =
+      document.getElementById(
+        "emptyQuestionMessage"
+      );
+
+
+    if (emptyMessage) {
+
+      emptyMessage.style.display =
+        "block";
+
+    }
+
+  }
+
+}
+
+
+
+/* =========================================================
+   READING / LISTENING
+   ========================================================= */
+
+function handleQuestionType(select) {
+
+  const card =
+    select.closest(
+      ".admin-question-card"
+    );
+
+
+  const audioField =
+    card.querySelector(
+      ".question-audio-field"
+    );
+
+
+  if (
+    select.value ===
+    "listening"
+  ) {
+
+    audioField.style.display =
+      "block";
+
+  }
+
+  else {
+
+    audioField.style.display =
+      "none";
+
+  }
+
+
+  updateQuestionStats();
+
+}
+
+
+
+/* =========================================================
+   QUESTION COUNTERS
+   ========================================================= */
+
+function updateQuestionStats() {
+
+  const questions =
+    document.querySelectorAll(
+      ".admin-question-card"
+    );
+
+
+  let reading = 0;
+
+  let listening = 0;
+
+
+  questions.forEach(
+    function (question) {
+
+      const section =
+        question.querySelector(
+          ".question-section"
+        ).value;
+
+
+      if (section === "reading") {
+
+        reading++;
+
+      }
+
+      else if (
+        section === "listening"
+      ) {
+
+        listening++;
+
+      }
+
+    }
+  );
+
+
+  document.getElementById(
+    "totalQuestionCount"
+  ).textContent =
+    questions.length;
+
+
+  document.getElementById(
+    "readingQuestionCount"
+  ).textContent =
+    reading;
+
+
+  document.getElementById(
+    "listeningQuestionCount"
+  ).textContent =
+    listening;
+
+}
+
+
+
+/* =========================================================
+   COLLECT QUIZ DATA
+   ========================================================= */
+
+function collectQuizData() {
+
+  const questions =
+    [];
+
+
+  const questionCards =
+    document.querySelectorAll(
+      ".admin-question-card"
+    );
+
+
+  questionCards.forEach(
+    function (card, index) {
+
+      questions.push({
+
+        question_number:
+          index + 1,
+
+        section:
+          card.querySelector(
+            ".question-section"
+          ).value,
+
+        question:
+          card.querySelector(
+            ".question-text"
+          ).value.trim(),
+
+        marks:
+          Number(
+            card.querySelector(
+              ".question-marks"
+            ).value
+          ),
+
+        options: {
+
+          A:
+            card.querySelector(
+              ".option-a"
+            ).value.trim(),
+
+          B:
+            card.querySelector(
+              ".option-b"
+            ).value.trim(),
+
+          C:
+            card.querySelector(
+              ".option-c"
+            ).value.trim(),
+
+          D:
+            card.querySelector(
+              ".option-d"
+            ).value.trim()
+
+        },
+
+        correct_answer:
+          card.querySelector(
+            ".correct-answer"
+          ).value
+
+      });
+
+    }
+  );
+
+
+  return {
+
+    title:
+      document.getElementById(
+        "quizTitle"
+      ).value.trim(),
+
+    set_number:
+      Number(
+        document.getElementById(
+          "quizSetNumber"
+        ).value
+      ),
+
+    duration:
+      Number(
+        document.getElementById(
+          "quizDuration"
+        ).value
+      ),
+
+    total_marks:
+      Number(
+        document.getElementById(
+          "quizTotalMarks"
+        ).value
+      ),
+
+    pass_marks:
+      Number(
+        document.getElementById(
+          "quizPassMarks"
+        ).value
+      ),
+
+    description:
+      document.getElementById(
+        "quizDescription"
+      ).value.trim(),
+
+    settings: {
+
+      show_results:
+        document.getElementById(
+          "showResults"
+        ).checked,
+
+      allow_retake:
+        document.getElementById(
+          "allowRetake"
+        ).checked,
+
+      subscription_required:
+        document.getElementById(
+          "subscriptionRequired"
+        ).checked
+
+    },
+
+    questions:
+      questions
+
+  };
+
+}
+
+
+
+/* =========================================================
+   VALIDATE QUIZ
+   ========================================================= */
+
+function validateQuiz(quiz) {
+
+  if (!quiz.title) {
+
+    alert(
+      "Please enter the test name."
+    );
+
+    return false;
+
+  }
+
+
+  if (!quiz.set_number) {
+
+    alert(
+      "Please enter the set number."
+    );
+
+    return false;
+
+  }
+
+
+  if (!quiz.duration) {
+
+    alert(
+      "Please enter the test duration."
+    );
+
+    return false;
+
+  }
+
+
+  if (
+    quiz.questions.length === 0
+  ) {
+
+    alert(
+      "Please add at least one question."
+    );
+
+    return false;
+
+  }
+
+
+  for (
+    let i = 0;
+    i < quiz.questions.length;
+    i++
+  ) {
+
+    const question =
+      quiz.questions[i];
+
+
+    if (!question.question) {
+
+      alert(
+        `Enter Question ${i + 1}.`
+      );
+
+      return false;
+
+    }
+
+
+    if (
+      !question.options.A ||
+      !question.options.B ||
+      !question.options.C ||
+      !question.options.D
+    ) {
+
+      alert(
+        `Complete all four options for Question ${i + 1}.`
+      );
+
+      return false;
+
+    }
+
+
+    if (
+      !question.correct_answer
+    ) {
+
+      alert(
+        `Select the correct answer for Question ${i + 1}.`
+      );
+
+      return false;
+
+    }
+
+  }
+
+
+  return true;
+
+}
+
+
+
+/* =========================================================
+   SAVE DRAFT
+   ========================================================= */
+
+function saveQuizDraft() {
+
+  const quiz =
+    collectQuizData();
+
+
+  quiz.status =
+    "draft";
+
+
+  localStorage.setItem(
+    "admin_quiz_draft",
+    JSON.stringify(quiz)
+  );
+
+
+  alert(
+    "Quiz saved as draft."
+  );
+
+}
+
+
+
+/* =========================================================
+   PUBLISH QUIZ
+   ========================================================= */
+
+function publishQuiz() {
+
+  const quiz =
+    collectQuizData();
+
+
+  if (!validateQuiz(quiz)) {
+    return;
+  }
+
+
+  quiz.status =
+    "published";
+
+
+  /*
+     TEMPORARY ONLY.
+
+     Replace this with the backend API
+     when the create-test endpoint is known.
+  */
+
+  localStorage.setItem(
+    "published_quiz",
+    JSON.stringify(quiz)
+  );
+
+
+  alert(
+    "Quiz published successfully!"
+  );
+
+
+  window.location.href =
+    "admin-tests.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
