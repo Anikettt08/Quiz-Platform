@@ -412,7 +412,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const action = button.dataset.action;
 
             const mapping = {
-                quiz: "quizzes",
+               
                 question: "questions",
                 user: "users",
                 results: "results"
@@ -466,7 +466,55 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     }
+/* =========================
+   ADMIN SETTINGS
+========================= */
 
+const saveAdminSettings =
+    document.getElementById("saveAdminSettings");
+
+
+// Load saved admin details when page opens
+const savedAdminName =
+    localStorage.getItem("adminName") || "Admin";
+
+const savedAdminEmail =
+    localStorage.getItem("adminEmail") || "";
+
+updateAdminProfile({
+    name: savedAdminName,
+    email: savedAdminEmail,
+    role: "Admin"
+});
+
+
+// Save settings
+if (saveAdminSettings) {
+
+    saveAdminSettings.addEventListener("click", () => {
+
+        const newName = settingsAdminName.value.trim();
+        const newEmail = settingsAdminEmail.value.trim();
+
+        if (!newName) {
+            alert("Please enter admin name.");
+            return;
+        }
+
+        localStorage.setItem("adminName", newName);
+        localStorage.setItem("adminEmail", newEmail);
+
+        updateAdminProfile({
+            name: newName,
+            email: newEmail,
+            role: "Admin"
+        });
+
+        alert("Settings saved successfully!");
+
+    });
+
+}
 
     /* =========================
        LOGOUT
@@ -485,7 +533,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!confirmed) return;
 
             // Change this to your actual login page
-            window.location.href = "login.html";
+            window.location.href = "ad-login.html";
 
         });
 
