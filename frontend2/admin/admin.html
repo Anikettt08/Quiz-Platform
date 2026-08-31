@@ -281,9 +281,9 @@
                         <p>Manage registered users on the platform.</p>
                     </div>
 
-                    <button class="primary-btn">
-                        + Add User
-                    </button>
+                    <button class="primary-btn" id="addUserBtn">
+    + Add User
+</button>
                 </div>
 
                 <div class="panel">
@@ -329,9 +329,12 @@
                         <p>Create and manage quizzes.</p>
                     </div>
 
-                    <button class="primary-btn">
-                        + Create Quiz
-                    </button>
+                   <button
+    class="primary-btn"
+    onclick="window.location.href='admin-create-quiz.html'"
+>
+    + Create Quiz
+</button>
                 </div>
 
                <div class="panel">
@@ -478,6 +481,206 @@
         </main>
 
     </div>
+
+    <!-- View User Modal -->
+<div class="modal-overlay" id="viewUserModal">
+    <div class="modal">
+
+        <div class="modal-header">
+            <div>
+                <h3>User Details</h3>
+                <p>View user information</p>
+            </div>
+
+            <button class="modal-close" id="closeViewUserModal">
+                &times;
+            </button>
+        </div>
+
+        <div class="user-details">
+
+            <div class="user-details-avatar" id="viewUserAvatar">
+                U
+            </div>
+
+            <h3 id="viewUserName">User</h3>
+
+            <div class="user-detail-row">
+                <span>Email</span>
+                <strong id="viewUserEmail">-</strong>
+            </div>
+
+            <div class="user-detail-row">
+                <span>Status</span>
+                <strong id="viewUserStatus">-</strong>
+            </div>
+
+            <div class="user-detail-row">
+                <span>Joined</span>
+                <strong id="viewUserJoined">-</strong>
+            </div>
+
+        </div>
+
+        <div class="modal-actions">
+            <button
+                type="button"
+                class="secondary-btn"
+                id="closeViewUser"
+            >
+                Close
+            </button>
+        </div>
+
+    </div>
+</div>
+
+    <!-- Add User Modal -->
+<div class="modal-overlay" id="addUserModal">
+    <div class="modal">
+
+        <div class="modal-header">
+            <div>
+                <h3>Add New User</h3>
+                <p>Create a new user account</p>
+            </div>
+
+            <button class="modal-close" id="closeAddUserModal">
+                &times;
+            </button>
+        </div>
+
+        <form id="addUserForm">
+
+            <div class="form-group">
+                <label for="newUserName">Full Name</label>
+                <input
+                    type="text"
+                    id="newUserName"
+                    placeholder="Enter full name"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="newUserEmail">Email</label>
+                <input
+                    type="email"
+                    id="newUserEmail"
+                    placeholder="Enter email address"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="newUserStatus">Status</label>
+
+                <select id="newUserStatus">
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+            </div>
+
+            <div class="modal-actions">
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    id="cancelAddUser"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+                    Add User
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<!-- Edit User Modal -->
+<div class="modal-overlay" id="editUserModal">
+    <div class="modal">
+
+        <div class="modal-header">
+            <div>
+                <h3>Edit User</h3>
+                <p>Update user information</p>
+            </div>
+
+            <button
+                class="modal-close"
+                id="closeEditUserModal"
+                type="button"
+            >
+                &times;
+            </button>
+        </div>
+
+        <form id="editUserForm">
+
+            <!-- Hidden user ID -->
+            <input type="hidden" id="editUserId">
+
+            <div class="form-group">
+                <label for="editUserName">Full Name</label>
+
+                <input
+                    type="text"
+                    id="editUserName"
+                    placeholder="Enter full name"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="editUserEmail">Email</label>
+
+                <input
+                    type="email"
+                    id="editUserEmail"
+                    placeholder="Enter email address"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="editUserStatus">Status</label>
+
+                <select id="editUserStatus">
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    id="cancelEditUser"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+                    Save Changes
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
 
     <script src="admin.js"></script>
 

@@ -22,59 +22,86 @@
      SIDEBAR
      ===================================================== -->
 
-<aside class="admin-sidebar">
+<aside class="sidebar">
 
-  <a href="admin.html" class="admin-sidebar-brand">
+    <div class="sidebar-logo">
 
-    <div class="admin-sidebar-logo">
-      K
+        <div class="logo-icon">
+            E
+        </div>
+
+        <div>
+            <h2>EPS TOPIK</h2>
+            <span>Admin Panel</span>
+        </div>
+
     </div>
 
-    <div>
-      <h2>EPS TOPIK</h2>
-      <span>ADMIN PORTAL</span>
+
+    <nav class="sidebar-nav">
+
+        <p class="nav-title">MAIN</p>
+
+        <a href="admin.html" class="nav-item">
+            <span class="nav-icon">▦</span>
+            Dashboard
+        </a>
+
+        <a href="admin.html" class="nav-item">
+            <span class="nav-icon">♙</span>
+            Users
+        </a>
+
+        <a href="admin.html" class="nav-item active">
+            <span class="nav-icon">▤</span>
+            Quizzes
+        </a>
+
+        <a href="admin.html" class="nav-item">
+            <span class="nav-icon">?</span>
+            Questions
+        </a>
+
+        <a href="admin.html" class="nav-item">
+            <span class="nav-icon">◒</span>
+            Results
+        </a>
+
+
+        <p class="nav-title">SYSTEM</p>
+
+        <a href="admin.html" class="nav-item">
+            <span class="nav-icon">⚙</span>
+            Settings
+        </a>
+
+    </nav>
+
+
+   <div class="sidebar-bottom">
+
+    <div class="admin-mini-profile">
+
+        <div class="profile-avatar">
+            A
+        </div>
+
+        <div class="profile-info">
+            <strong>Admin</strong>
+            <span>Admin</span>
+        </div>
+
     </div>
 
-  </a>
 
+    <button
+        class="logout-btn"
+        onclick="window.location.href='admin-login.html'"
+    >
+        ↪ Logout
+    </button>
 
-  <nav class="admin-sidebar-nav">
-
-    <a href="admin.html">
-      <span>⌂</span>
-      Dashboard
-    </a>
-
-    <a href="admin-tests.html" class="active">
-      <span>▣</span>
-      Tests
-    </a>
-
-    <a href="admin-students.html">
-      <span>♙</span>
-      Students
-    </a>
-
-    <a href="admin-results.html">
-      <span>▤</span>
-      Results
-    </a>
-
-    <a href="admin-payments.html">
-      <span>₹</span>
-      Payments
-    </a>
-
-  </nav>
-
-
-  <div class="admin-sidebar-bottom">
-
-    <a href="admin-login.html">
-      ← Logout
-    </a>
-
-  </div>
+</div>
 
 </aside>
 
@@ -84,46 +111,67 @@
      MAIN CONTENT
      ===================================================== -->
 
-<main class="admin-main">
+<main class="main-content">
 
 
-  <!-- ================= HEADER ================= -->
+  <header class="topbar">
 
-  <header class="admin-topbar">
+    <div class="page-heading">
 
-    <div>
+        <h1>Create New Quiz</h1>
 
-      <span class="admin-page-eyebrow">
-        TEST MANAGEMENT
-      </span>
-
-      <h1>Create New Quiz</h1>
+        <p>
+            Create and configure a new quiz
+        </p>
 
     </div>
 
 
-    <div class="admin-topbar-actions">
+    <div class="topbar-right">
 
-      <button
-        type="button"
-        class="admin-outline-btn"
-        onclick="saveQuizDraft()"
-      >
-        Save Draft
-      </button>
+        <!-- Notifications -->
+        <button class="notification-btn" title="Notifications">
+            ♢
+            <span class="notification-dot"></span>
+        </button>
 
-      <button
-        type="button"
-        class="admin-primary-btn"
-        onclick="publishQuiz()"
-      >
-        Publish Quiz
-      </button>
+
+        <!-- Admin Profile -->
+        <div class="top-profile">
+
+            <div class="profile-avatar">
+                A
+            </div>
+
+            <div>
+                <strong>Admin</strong>
+                <span>Admin</span>
+            </div>
+
+        </div>
+
+
+        <!-- Quiz Actions -->
+        <button
+            type="button"
+            class="admin-outline-btn"
+            onclick="saveQuizDraft()"
+        >
+            Save Draft
+        </button>
+
+
+        <button
+            type="button"
+            class="admin-primary-btn"
+            onclick="publishQuiz()"
+        >
+            Publish Quiz
+        </button>
 
     </div>
 
-  </header>
-
+</header>
 
 
   <div class="admin-create-container">
@@ -554,6 +602,234 @@
 
 let questionCount = 0;
 
+/* =========================================================
+   EDIT QUIZ MODE
+   ========================================================= */
+
+const editParams =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const editQuizId =
+  editParams.get("edit");
+
+let editingQuiz = null;
+
+
+/* =========================================================
+   LOAD QUIZ FOR EDITING
+   ========================================================= */
+
+function loadQuizForEditing() {
+
+  if (!editQuizId) {
+    return;
+  }
+
+
+  const quizzes =
+    JSON.parse(
+      localStorage.getItem("admin_quizzes") || "[]"
+    );
+
+
+  editingQuiz =
+    quizzes.find(
+      function (quiz) {
+
+        return String(quiz.id) ===
+               String(editQuizId);
+
+      }
+    );
+
+
+  if (!editingQuiz) {
+
+    alert(
+      "Quiz could not be found."
+    );
+
+    window.location.href =
+      "admin.html";
+
+    return;
+
+  }
+
+
+  /* =====================================================
+     LOAD QUIZ INFORMATION
+     ===================================================== */
+
+  document.getElementById(
+    "quizTitle"
+  ).value =
+    editingQuiz.title || "";
+
+
+  document.getElementById(
+    "quizSetNumber"
+  ).value =
+    editingQuiz.set_number || "";
+
+
+  document.getElementById(
+    "quizDuration"
+  ).value =
+    editingQuiz.duration || "";
+
+
+  document.getElementById(
+    "quizTotalMarks"
+  ).value =
+    editingQuiz.total_marks || "";
+
+
+  document.getElementById(
+    "quizPassMarks"
+  ).value =
+    editingQuiz.pass_marks || "";
+
+
+  document.getElementById(
+    "quizDescription"
+  ).value =
+    editingQuiz.description || "";
+
+
+  /* =====================================================
+     LOAD SETTINGS
+     ===================================================== */
+
+  if (editingQuiz.settings) {
+
+    document.getElementById(
+      "showResults"
+    ).checked =
+      !!editingQuiz.settings.show_results;
+
+
+    document.getElementById(
+      "allowRetake"
+    ).checked =
+      !!editingQuiz.settings.allow_retake;
+
+
+    document.getElementById(
+      "subscriptionRequired"
+    ).checked =
+      !!editingQuiz.settings.subscription_required;
+
+  }
+
+
+  /* =====================================================
+     CLEAR EXISTING QUESTIONS
+     ===================================================== */
+
+  const container =
+    document.getElementById(
+      "questionContainer"
+    );
+
+
+  container.innerHTML = "";
+
+
+  questionCount = 0;
+
+
+  /* =====================================================
+     RECREATE QUESTIONS
+     ===================================================== */
+
+  if (
+    Array.isArray(
+      editingQuiz.questions
+    )
+  ) {
+
+    editingQuiz.questions.forEach(
+      function (savedQuestion) {
+
+        addQuestion();
+
+
+        const cards =
+          document.querySelectorAll(
+            ".admin-question-card"
+          );
+
+
+        const card =
+          cards[cards.length - 1];
+
+
+        card.querySelector(
+          ".question-section"
+        ).value =
+          savedQuestion.section || "reading";
+
+
+        card.querySelector(
+          ".question-marks"
+        ).value =
+          savedQuestion.marks || 5;
+
+
+        card.querySelector(
+          ".question-text"
+        ).value =
+          savedQuestion.question || "";
+
+
+        card.querySelector(
+          ".option-a"
+        ).value =
+          savedQuestion.options?.A || "";
+
+
+        card.querySelector(
+          ".option-b"
+        ).value =
+          savedQuestion.options?.B || "";
+
+
+        card.querySelector(
+          ".option-c"
+        ).value =
+          savedQuestion.options?.C || "";
+
+
+        card.querySelector(
+          ".option-d"
+        ).value =
+          savedQuestion.options?.D || "";
+
+
+        card.querySelector(
+          ".correct-answer"
+        ).value =
+          savedQuestion.correct_answer || "";
+
+
+        handleQuestionType(
+          card.querySelector(
+            ".question-section"
+          )
+        );
+
+      }
+    );
+
+  }
+
+
+  updateQuestionStats();
+
+}
 
 /* =========================================================
    ADD QUESTION
@@ -1331,7 +1607,7 @@ function saveQuizDraft() {
 
 
 /* =========================================================
-   PUBLISH QUIZ
+   PUBLISH / UPDATE QUIZ
    ========================================================= */
 
 function publishQuiz() {
@@ -1345,20 +1621,116 @@ function publishQuiz() {
   }
 
 
+  let existingQuizzes =
+    JSON.parse(
+      localStorage.getItem(
+        "admin_quizzes"
+      ) || "[]"
+    );
+
+
+  /* =====================================================
+     EDIT EXISTING QUIZ
+     ===================================================== */
+
+  if (editQuizId) {
+
+    const quizIndex =
+      existingQuizzes.findIndex(
+        function (existingQuiz) {
+
+          return String(existingQuiz.id) ===
+                 String(editQuizId);
+
+        }
+      );
+
+
+    if (quizIndex === -1) {
+
+      alert(
+        "The quiz you are trying to update could not be found."
+      );
+
+      return;
+
+    }
+
+
+    /* Keep the original ID and creation date */
+
+    quiz.id =
+      existingQuizzes[quizIndex].id;
+
+
+    quiz.created_at =
+      existingQuizzes[quizIndex].created_at;
+
+
+    quiz.status =
+      "published";
+
+
+    quiz.questions_count =
+      quiz.questions.length;
+
+
+    existingQuizzes[quizIndex] =
+      quiz;
+
+
+    localStorage.setItem(
+      "admin_quizzes",
+      JSON.stringify(
+        existingQuizzes
+      )
+    );
+
+
+    alert(
+      "Quiz updated successfully!"
+    );
+
+
+    window.location.href =
+      "admin.html";
+
+
+    return;
+
+  }
+
+
+  /* =====================================================
+     CREATE NEW QUIZ
+     ===================================================== */
+
   quiz.status =
     "published";
 
 
-  /*
-     TEMPORARY ONLY.
+  quiz.id =
+    "quiz_" + Date.now();
 
-     Replace this with the backend API
-     when the create-test endpoint is known.
-  */
+
+  quiz.created_at =
+    new Date().toISOString();
+
+
+  quiz.questions_count =
+    quiz.questions.length;
+
+
+  existingQuizzes.push(
+    quiz
+  );
+
 
   localStorage.setItem(
-    "published_quiz",
-    JSON.stringify(quiz)
+    "admin_quizzes",
+    JSON.stringify(
+      existingQuizzes
+    )
   );
 
 
@@ -1368,9 +1740,15 @@ function publishQuiz() {
 
 
   window.location.href =
-    "admin-tests.html";
+    "admin.html";
 
 }
+
+/* =========================================================
+   LOAD QUIZ FOR EDITING
+   ========================================================= */
+
+loadQuizForEditing();
 
 </script>
 
