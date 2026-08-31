@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>EPS TOPIK - Review Answers</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body class="review-page">
+
+
+  <!-- ================= NAVBAR ================= -->
+
+  <header class="dashboard-navbar">
+
+    <a href="dashboard.html" class="dashboard-brand">
+
+      <div class="dashboard-logo">
+        K
+      </div>
+
+      <div>
+        <h1>EPS TOPIK</h1>
+        <span>EXAM PLATFORM</span>
+      </div>
+
+    </a>
+
+
+    <div class="user-menu">
+
+      <a
+        href="answers.html"
+        class="profile-nav-btn"
+      >
+        ← Back to Result
+      </a>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- ================= MAIN ================= -->
+
+  <main class="review-container">
+
+
+    <!-- HEADING -->
+
+    <section class="review-heading">
+
+      <span class="dashboard-eyebrow">
+        ANSWER REVIEW
+      </span>
+
+      <h1>
+        Review your answers
+      </h1>
+
+      <p>
+        Check your submitted answers and compare them
+        with the correct answers.
+      </p>
+
+    </section>
+
+
+
+    <!-- ================= SUMMARY ================= -->
+
+    <section class="review-summary">
+
+      <div class="review-summary-item">
+
+        <span>Total Questions</span>
+
+        <strong id="reviewTotal">
+          40
+        </strong>
+
+      </div>
+
+
+      <div class="review-summary-item correct-summary">
+
+        <span>Correct</span>
+
+        <strong id="reviewCorrect">
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="review-summary-item wrong-summary">
+
+        <span>Incorrect</span>
+
+        <strong id="reviewWrong">
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="review-summary-item">
+
+        <span>Unanswered</span>
+
+        <strong id="reviewUnanswered">
+          0
+        </strong>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ================= FILTERS ================= -->
+
+    <section class="review-toolbar">
+
+      <div>
+
+        <button
+          class="review-filter active"
+          data-filter="all"
+        >
+          All
+        </button>
+
+
+        <button
+          class="review-filter"
+          data-filter="correct"
+        >
+          Correct
+        </button>
+
+
+        <button
+          class="review-filter"
+          data-filter="wrong"
+        >
+          Incorrect
+        </button>
+
+
+        <button
+          class="review-filter"
+          data-filter="unanswered"
+        >
+          Unanswered
+        </button>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ================= QUESTIONS ================= -->
+
+    <section
+      class="review-question-list"
+      id="reviewQuestionList"
+    >
+
+
+      <!-- QUESTION 1 -->
+
+      <article
+        class="review-question-card"
+        data-status="correct"
+      >
+
+        <div class="review-question-header">
+
+          <span class="review-question-number">
+            Question 01
+          </span>
+
+          <span class="review-status correct-status">
+            ✓ Correct
+          </span>
+
+        </div>
+
+
+        <h3 class="review-question-text">
+          Question text will appear here.
+        </h3>
+
+
+        <div class="review-answer-list">
+
+          <div class="review-answer">
+            <span>A</span>
+            Option A
+          </div>
+
+
+          <div class="review-answer correct-answer">
+            <span>B</span>
+            Option B
+          </div>
+
+
+          <div class="review-answer">
+            <span>C</span>
+            Option C
+          </div>
+
+
+          <div class="review-answer">
+            <span>D</span>
+            Option D
+          </div>
+
+        </div>
+
+
+        <div class="review-answer-info">
+
+          <div>
+            <span>Your Answer</span>
+            <strong>Option B</strong>
+          </div>
+
+          <div>
+            <span>Correct Answer</span>
+            <strong>Option B</strong>
+          </div>
+
+        </div>
+
+      </article>
+
+
+
+      <!-- QUESTION 2 -->
+
+      <article
+        class="review-question-card"
+        data-status="wrong"
+      >
+
+        <div class="review-question-header">
+
+          <span class="review-question-number">
+            Question 02
+          </span>
+
+          <span class="review-status wrong-status">
+            × Incorrect
+          </span>
+
+        </div>
+
+
+        <h3 class="review-question-text">
+          Question text will appear here.
+        </h3>
+
+
+        <div class="review-answer-list">
+
+          <div class="review-answer wrong-answer">
+            <span>A</span>
+            Option A
+          </div>
+
+
+          <div class="review-answer">
+            <span>B</span>
+            Option B
+          </div>
+
+
+          <div class="review-answer correct-answer">
+            <span>C</span>
+            Option C
+          </div>
+
+
+          <div class="review-answer">
+            <span>D</span>
+            Option D
+          </div>
+
+        </div>
+
+
+        <div class="review-answer-info">
+
+          <div>
+            <span>Your Answer</span>
+            <strong class="wrong-text">
+              Option A
+            </strong>
+          </div>
+
+          <div>
+            <span>Correct Answer</span>
+            <strong class="correct-text">
+              Option C
+            </strong>
+          </div>
+
+        </div>
+
+      </article>
+
+
+
+      <!-- QUESTION 3 -->
+
+      <article
+        class="review-question-card"
+        data-status="unanswered"
+      >
+
+        <div class="review-question-header">
+
+          <span class="review-question-number">
+            Question 03
+          </span>
+
+          <span class="review-status unanswered-status">
+            — Unanswered
+          </span>
+
+        </div>
+
+
+        <h3 class="review-question-text">
+          Question text will appear here.
+        </h3>
+
+
+        <div class="review-answer-list">
+
+          <div class="review-answer">
+            <span>A</span>
+            Option A
+          </div>
+
+
+          <div class="review-answer correct-answer">
+            <span>B</span>
+            Option B
+          </div>
+
+
+          <div class="review-answer">
+            <span>C</span>
+            Option C
+          </div>
+
+
+          <div class="review-answer">
+            <span>D</span>
+            Option D
+          </div>
+
+        </div>
+
+
+        <div class="review-answer-info">
+
+          <div>
+            <span>Your Answer</span>
+            <strong>
+              Not Answered
+            </strong>
+          </div>
+
+          <div>
+            <span>Correct Answer</span>
+            <strong class="correct-text">
+              Option B
+            </strong>
+          </div>
+
+        </div>
+
+      </article>
+
+
+    </section>
+
+
+
+    <!-- ================= BOTTOM ================= -->
+
+    <section class="review-bottom">
+
+      <button
+        type="button"
+        class="review-back-button"
+        onclick="window.location.href='answers.html'"
+      >
+        ← Back to Result
+      </button>
+
+
+      <button
+        type="button"
+        class="review-dashboard-button"
+        onclick="window.location.href='dashboard.html'"
+      >
+        Go to Dashboard →
+      </button>
+
+    </section>
+
+
+  </main>
+
+
+
+  <footer class="dashboard-footer">
+
+    <p>
+      © 2026 EPS TOPIK Exam Platform
+    </p>
+
+    <div>
+      <a href="#">Help</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </div>
+
+  </footer>
+
+
+  <script src="review-answers.js"></script>
+
+</body>
+
+</html>

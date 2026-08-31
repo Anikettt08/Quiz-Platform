@@ -884,15 +884,19 @@ if (loginForm) {
         "user_email",
         email
       );
+      /* =========================================================
+   SUBSCRIPTION BUTTON
+   ========================================================= */
+
+function startSubscription() {
+  window.location.href = "payment.html";
+}
+
+   
+}
 
 
-      alert("Login successful!");
-
-
-      window.location.href =
-        "dashboard.html";
-
-    }
+    
 
     catch (error) {
 
@@ -988,15 +992,26 @@ function editProfile() {
 /* =========================================================
    SUBSCRIPTION BUTTON
    ========================================================= */
-
 function startSubscription() {
 
-  alert(
-    "Payment gateway will be connected here."
-  );
+  const token = localStorage.getItem("access_token");
 
+  // User is NOT logged in
+  if (!token) {
+
+    // Remember where the user wanted to go
+    localStorage.setItem(
+      "redirect_after_login",
+      "payment.html"
+    );
+
+    window.location.href = "login.html";
+    return;
+  }
+
+  // User is already logged in
+  window.location.href = "payment.html";
 }
-
 
 /* =========================================================
    LOGOUT
