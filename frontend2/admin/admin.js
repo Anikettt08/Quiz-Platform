@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const usersTable = document.getElementById("usersTable");
     const quizzesTable = document.getElementById("quizzesTable");
-    const questionsTable = document.getElementById("questionsTable");
 
     const averageScore = document.getElementById("averageScore");
     const passRate = document.getElementById("passRate");
@@ -108,22 +107,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateResults(data) {
 
-        if (averageScore) {
-            averageScore.textContent =
-                `${data.averageScore ?? 0}%`;
-        }
-
-        if (passRate) {
-            passRate.textContent =
-                `${data.passRate ?? 0}%`;
-        }
-
-        if (todayAttempts) {
-            todayAttempts.textContent =
-                data.todayAttempts ?? 0;
-        }
+    if (averageScore) {
+        averageScore.textContent =
+            `${data.averageScore ?? 0}%`;
     }
 
+    if (passRate) {
+        passRate.textContent =
+            `${data.passRate ?? 0}%`;
+    }
+
+    if (todayAttempts) {
+        todayAttempts.textContent =
+            data.todayAttempts ?? 0;
+    }
+
+    const totalResultAttempts =
+        document.getElementById("totalResultAttempts");
+
+    if (totalResultAttempts) {
+        totalResultAttempts.textContent =
+            data.totalAttempts ?? 0;
+    }
+}
 
     /* =========================
        UPDATE ADMIN PROFILE
@@ -131,9 +137,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateAdminProfile(data) {
 
-        const name = data.name || "Admin";
-        const role = data.role || "Admin";
-        const email = data.email || "";
+    const name = data.name || "";
+    const role = data.role || "";
+    const email = data.email || "";
 
         // Sidebar
         if (sidebarAdminName) {
@@ -351,40 +357,15 @@ updateUsersTable([]);
 
 function loadPublishedQuizzes() {
 
-    const quizzes = JSON.parse(
-        localStorage.getItem("admin_quizzes") || "[]"
-    );
+    /*
+     * Quiz data will be loaded from the backend.
+     *
+     * We intentionally do not use localStorage
+     * or create fake quiz data here.
+     */
 
+    updateQuizzesTable([]);
 
-    updateQuizzesTable(quizzes);
-
-
-    /* Update dashboard quiz count */
-
-    if (totalQuizzes) {
-        totalQuizzes.textContent =
-            quizzes.length;
-    }
-
-
-    /* Update dashboard question count */
-
-    if (totalQuestions) {
-
-        const totalQuestionsCount =
-            quizzes.reduce(
-                (total, quiz) =>
-                    total + (
-                        quiz.questions_count ??
-                        quiz.questions?.length ??
-                        0
-                    ),
-                0
-            );
-
-        totalQuestions.textContent =
-            totalQuestionsCount;
-    }
 }
 /* =========================
    DELETE QUIZ
@@ -402,63 +383,18 @@ document.addEventListener("click", function (event) {
 
     if (!quizId) return;
 
+    /*
+     * Backend deletion will be connected later.
+     *
+     * We intentionally do not delete anything
+     * from localStorage or create fake data.
+     */
 
-    const confirmDelete =
-        confirm(
-            "Are you sure you want to delete this quiz?"
-        );
-
-    if (!confirmDelete) return;
-
-
-    let quizzes = JSON.parse(
-        localStorage.getItem("admin_quizzes") || "[]"
+    alert(
+        "Quiz deletion is ready. " +
+        "Backend integration will be added later."
     );
 
-
-    quizzes = quizzes.filter(
-        quiz => String(quiz.id) !== String(quizId)
-    );
-
-
-    localStorage.setItem(
-        "admin_quizzes",
-        JSON.stringify(quizzes)
-    );
-
-
-    /* Refresh the table */
-
-    updateQuizzesTable(quizzes);
-
-
-    /* Update dashboard counts */
-
-    if (totalQuizzes) {
-        totalQuizzes.textContent =
-            quizzes.length;
-    }
-
-
-    if (totalQuestions) {
-
-        const totalQuestionsCount =
-            quizzes.reduce(
-                (total, quiz) =>
-                    total + (
-                        quiz.questions_count ??
-                        quiz.questions?.length ??
-                        0
-                    ),
-                0
-            );
-
-        totalQuestions.textContent =
-            totalQuestionsCount;
-    }
-
-
-    alert("Quiz deleted successfully.");
 });
 
 /* =========================
@@ -505,46 +441,6 @@ loadPublishedQuizzes();
 
 
     /* =========================
-       UPDATE QUESTIONS TABLE
-    ========================= */
-
-    function updateQuestionsTable(questions) {
-
-    }
-    const titles = {
-        dashboard: {
-            title: "Dashboard",
-            subtitle: "Overview of your EPS TOPIK platform"
-        },
-
-        users: {
-            title: "Users",
-            subtitle: "Manage registered users"
-        },
-
-        quizzes: {
-            title: "Quizzes",
-            subtitle: "Create and manage quizzes"
-        },
-
-        questions: {
-            title: "Questions",
-            subtitle: "Manage exam questions"
-        },
-
-        results: {
-            title: "Results",
-            subtitle: "Monitor user performance"
-        },
-
-        settings: {
-            title: "Settings",
-            subtitle: "Manage administrator settings"
-        }
-    };
-
-
-    /* =========================
        SIDEBAR NAVIGATION
     ========================= */
 
@@ -573,10 +469,37 @@ loadPublishedQuizzes();
                 selectedSection.classList.add("active");
             }
 
-            if (titles[sectionName]) {
-                pageTitle.textContent = titles[sectionName].title;
-                pageSubtitle.textContent = titles[sectionName].subtitle;
-            }
+           const pageMeta = {
+    dashboard: {
+        title: "Dashboard",
+        subtitle: "Overview of your EPS TOPIK platform"
+    },
+    users: {
+        title: "Users",
+        subtitle: "Manage platform users"
+    },
+    quizzes: {
+        title: "Quizzes",
+        subtitle: "Create and manage quizzes"
+    },
+    results: {
+        title: "Results",
+        subtitle: "View quiz results and performance"
+    },
+    payments: {
+        title: "Payments",
+        subtitle: "Manage and monitor payment activity"
+    },
+    settings: {
+        title: "Settings",
+        subtitle: "Manage admin panel settings"
+    }
+};
+
+if (pageMeta[sectionName]) {
+    pageTitle.textContent = pageMeta[sectionName].title;
+    pageSubtitle.textContent = pageMeta[sectionName].subtitle;
+}
 
             sidebar.classList.remove("open");
         });
@@ -610,13 +533,10 @@ loadPublishedQuizzes();
 
             const action = button.dataset.action;
 
-            const mapping = {
-               
-                question: "questions",
-                user: "users",
-                results: "results"
-            };
-
+           const mapping = {
+    user: "users",
+    results: "results"
+};
             const target = mapping[action];
 
             if (!target) return;
@@ -887,42 +807,17 @@ if (usersTable) {
 
     usersTable.addEventListener("click", event => {
 
-        const button =
-            event.target.closest(".table-action");
+        const button = event.target.closest(".table-action");
 
         if (!button) return;
 
-        const userId =
-            button.dataset.userId;
+        const userId = button.dataset.userId;
 
         if (!userId) return;
 
-        /*
-         * The actual user object will come
-         * from the backend later.
-         *
-         * For now, there is no user data,
-         * so we do not create fake data here.
-         */
-
-        if (usersTable) {
-
-    usersTable.addEventListener("click", event => {
-
-        const button =
-            event.target.closest(".table-action");
-
-        if (!button) return;
-
-        const userId =
-            button.dataset.userId;
-
-        if (!userId) return;
-
-        const selectedUser =
-            currentUsers.find(
-                user => String(user.id) === String(userId)
-            );
+        const selectedUser = currentUsers.find(
+            user => String(user.id) === String(userId)
+        );
 
         if (!selectedUser) {
             console.error("User not found:", userId);
@@ -930,14 +825,100 @@ if (usersTable) {
         }
 
         if (button.classList.contains("view-user-btn")) {
-
             openViewUserModal(selectedUser);
-
         }
 
         if (button.classList.contains("edit-user-btn")) {
-
             openEditUserModal(selectedUser);
+        }
+
+    });
+
+}
+
+/* =========================
+   TERMS & CONDITIONS
+========================= */
+
+const termsModal =
+    document.getElementById("termsModal");
+
+const viewTermsBtn =
+    document.getElementById("viewTermsBtn");
+
+const closeTermsModal =
+    document.getElementById("closeTermsModal");
+
+const closeTermsBtn =
+    document.getElementById("closeTermsBtn");
+
+
+function openTermsModal() {
+
+    if (!termsModal) return;
+
+    termsModal.classList.add("active");
+
+}
+
+
+function closeTermsModalWindow() {
+
+    if (!termsModal) return;
+
+    termsModal.classList.remove("active");
+
+}
+
+
+/* Open Terms */
+
+if (viewTermsBtn) {
+
+    viewTermsBtn.addEventListener("click", () => {
+
+        openTermsModal();
+
+    });
+
+}
+
+
+/* Close using X */
+
+if (closeTermsModal) {
+
+    closeTermsModal.addEventListener("click", () => {
+
+        closeTermsModalWindow();
+
+    });
+
+}
+
+
+/* Close using button */
+
+if (closeTermsBtn) {
+
+    closeTermsBtn.addEventListener("click", () => {
+
+        closeTermsModalWindow();
+
+    });
+
+}
+
+
+/* Close by clicking outside */
+
+if (termsModal) {
+
+    termsModal.addEventListener("click", event => {
+
+        if (event.target === termsModal) {
+
+            closeTermsModalWindow();
 
         }
 
@@ -945,9 +926,6 @@ if (usersTable) {
 
 }
 
-    });
-
-}
 /* =========================
    ADMIN SETTINGS
 ========================= */
@@ -955,44 +933,19 @@ if (usersTable) {
 const saveAdminSettings =
     document.getElementById("saveAdminSettings");
 
-
-// Load saved admin details when page opens
-const savedAdminName =
-    localStorage.getItem("adminName") || "Admin";
-
-const savedAdminEmail =
-    localStorage.getItem("adminEmail") || "";
-
 updateAdminProfile({
-    name: savedAdminName,
-    email: savedAdminEmail,
-    role: "Admin"
+    name: "",
+    email: "",
+    role: ""
 });
 
-
-// Save settings
 if (saveAdminSettings) {
 
     saveAdminSettings.addEventListener("click", () => {
 
-        const newName = settingsAdminName.value.trim();
-        const newEmail = settingsAdminEmail.value.trim();
-
-        if (!newName) {
-            alert("Please enter admin name.");
-            return;
-        }
-
-        localStorage.setItem("adminName", newName);
-        localStorage.setItem("adminEmail", newEmail);
-
-        updateAdminProfile({
-            name: newName,
-            email: newEmail,
-            role: "Admin"
-        });
-
-        alert("Settings saved successfully!");
+        alert(
+            "Admin profile will be connected to the backend."
+        );
 
     });
 
