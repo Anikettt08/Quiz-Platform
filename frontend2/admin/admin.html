@@ -51,7 +51,7 @@
     Payments
 </a>
 
-<p class="nav-title">SYSTEM</p>>
+<p class="nav-title">SYSTEM</p>
 
                 <a href="#" class="nav-item" data-section="settings">
                     <span class="nav-icon">⚙</span>
@@ -552,133 +552,212 @@
 </section>
 
 
-   <!-- Settings Section -->
+  <!-- =========================
+     SETTINGS SECTION
+========================= -->
+
 <section class="content-section" id="settings">
 
     <div class="section-header">
         <div>
             <h2>Settings</h2>
-            <p>Manage your administrator account and platform information.</p>
+            <p>Manage administrator and platform settings.</p>
         </div>
     </div>
+
 
     <div class="settings-grid">
 
         <!-- Administrator Profile -->
-        <div class="panel settings-card">
+        <div class="settings-card">
 
-            <div class="settings-card-header">
-                <div class="settings-card-icon profile-settings-icon">
-                    👤
-                </div>
-
-                <div>
-                    <h3>Administrator Profile</h3>
-                    <p>Manage your administrator information.</p>
-                </div>
+            <div class="settings-card-icon">
+                <i class="fa-solid fa-user"></i>
             </div>
 
-            <div class="settings-form">
+            <div class="settings-card-content">
 
-                <div class="settings-field">
-                    <label for="settingsAdminName">
-                        Admin Name
-                    </label>
+                <h3>Administrator Profile</h3>
 
-                    <input
-                        type="text"
-                        id="settingsAdminName"
-                        placeholder="Admin name"
-                    >
-                </div>
+                <p>
+                    View and manage the administrator's profile
+                    information.
+                </p>
 
-                <div class="settings-field">
-                    <label for="settingsAdminEmail">
-                        Email Address
-                    </label>
+                <a
+                    href="admin-profile.html"
+                    class="settings-action-btn"
+                >
+                    Manage Profile
+                </a>
 
-                    <input
-                        type="email"
-                        id="settingsAdminEmail"
-                        placeholder="Admin email"
-                    >
-                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Account Security -->
+        <div class="settings-card">
+
+            <div class="settings-card-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div class="settings-card-content">
+
+                <h3>Account Security</h3>
+
+                <p>
+                    Manage password and security settings
+                    for the administrator account.
+                </p>
+
+                <a
+                    href="account-security.html"
+                    class="settings-action-btn"
+                >
+                    Manage Security
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Admin Access Management -->
+        <div class="settings-card">
+
+            <div class="settings-card-icon">
+                <i class="fa-solid fa-user-shield"></i>
+            </div>
+
+            <div class="settings-card-content">
+
+                <h3>Admin Access Management</h3>
+
+                <p>
+                    Verify another person's Gmail and grant
+                    administrator access to the platform.
+                </p>
+
+                <a
+                    href="admin-access.html"
+                    class="settings-action-btn"
+                >
+                    Manage Admin Access
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Quiz Settings -->
+        <div class="settings-card">
+
+            <div class="settings-card-icon">
+                <i class="fa-solid fa-clipboard-question"></i>
+            </div>
+
+            <div class="settings-card-content">
+
+                <h3>Quiz Settings</h3>
+
+                <p>
+                    Manage general quiz configuration and
+                    platform quiz behaviour.
+                </p>
+
+                <a
+                    href="quiz-settings.html"
+                    class="settings-action-btn"
+                >
+                    Manage Quiz Settings
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Platform Information -->
+        <div class="settings-card">
+
+            <div class="settings-card-icon">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+
+            <div class="settings-card-content">
+
+                <h3>Platform Information</h3>
+
+                <p>
+                    View platform, system and application
+                    information.
+                </p>
+
+                <a
+                    href="platform-info.html"
+                    class="settings-action-btn"
+                >
+                    View Platform Info
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Terms & Conditions -->
+        <div class="settings-card">
+
+            <div class="settings-card-icon">
+                <i class="fa-solid fa-file-contract"></i>
+            </div>
+
+            <div class="settings-card-content">
+
+                <h3>Terms &amp; Conditions</h3>
+
+                <p>
+                    Review the terms and conditions of the
+                    EPS TOPIK Quiz Platform.
+                </p>
 
                 <button
-                    class="primary-btn settings-save-btn"
-                    id="saveAdminSettings"
                     type="button"
+                    id="viewTermsBtn"
+                    class="settings-action-btn terms-view-btn"
                 >
-                    Save Changes
+                    View Terms &amp; Conditions
                 </button>
 
             </div>
 
         </div>
 
-
-       
-
-        <!-- Terms & Conditions -->
-        <div class="panel settings-card">
-
-            <div class="settings-card-header">
-                <div class="settings-card-icon terms-settings-icon">
-                    📄
-                </div>
-
-                <div>
-                    <h3>Terms & Conditions</h3>
-                    <p>Platform rules and usage guidelines.</p>
-                </div>
-            </div>
-
-            <div class="terms-preview">
-
-                <div class="terms-preview-title">
-                    EPS TOPIK Quiz Platform
-                </div>
-
-                <p>
-                    These terms explain the rules and guidelines for
-                    using the EPS TOPIK quiz platform.
-                </p>
-
-                <div class="terms-meta">
-                    <span>Last updated</span>
-                    <strong>September 2026</strong>
-                </div>
-
-            </div>
-
-            <button
-                type="button"
-                class="secondary-btn terms-view-btn"
-                id="viewTermsBtn"
-            >
-                View Terms & Conditions
-            </button>
-
-        </div>
-
     </div>
 
 
-    <!-- Information -->
+    <!-- Settings Information -->
     <div class="settings-notice">
 
         <div class="settings-notice-icon">
-            ℹ
+            <i class="fa-solid fa-circle-info"></i>
         </div>
 
         <div>
-            <strong>Administrator Information</strong>
+
+            <strong>Administrator Settings</strong>
 
             <p>
-                Settings such as administrator profile information are
-                currently stored locally. Terms & Conditions are
-                hardcoded into this admin panel.
+                Administrator profile, security, access,
+                and quiz settings will be connected to the
+                backend as the corresponding features are
+                implemented. Terms &amp; Conditions are
+                currently hardcoded into this admin panel.
             </p>
+
         </div>
 
     </div>

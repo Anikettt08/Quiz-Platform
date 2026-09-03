@@ -58,14 +58,15 @@
         </a>
 
         <a href="admin.html" class="nav-item">
-            <span class="nav-icon">?</span>
-            Questions
-        </a>
-
-        <a href="admin.html" class="nav-item">
             <span class="nav-icon">◒</span>
             Results
         </a>
+
+        <a href="admin.html" class="nav-item" data-section="payments">
+    <span class="nav-icon">₹</span>
+    Payments
+</a>
+
 
 
         <p class="nav-title">SYSTEM</p>
@@ -80,30 +81,22 @@
 
    <div class="sidebar-bottom">
 
-    <div class="admin-mini-profile">
-
-        <div class="profile-avatar">
-            A
-        </div>
-
-        <div class="profile-info">
-            <strong>Admin</strong>
-            <span>Admin</span>
-        </div>
-
+                <div class="admin-mini-profile">
+    <div class="profile-avatar" id="sidebarAdminAvatar">A</div>
+    <div class="profile-info">
+        <strong id="sidebarAdminName">Admin</strong>
+        <span id="sidebarAdminRole">Admin</span>
     </div>
-
-
-    <button
-        class="logout-btn"
-        onclick="window.location.href='admin-login.html'"
-    >
-        ↪ Logout
-    </button>
-
 </div>
 
-</aside>
+                <button class="logout-btn" id="logoutBtn">
+                    <span>↪</span>
+                    Logout
+                </button>
+
+            </div>
+
+        </aside>
 
 
 
