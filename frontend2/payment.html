@@ -45,10 +45,10 @@
     <div class="user-menu">
 
       <a
-        href="subscription.html"
+        href="set.html"
         class="profile-nav-btn"
       >
-        ← Back
+        ← Back to Sets
       </a>
 
     </div>
@@ -72,7 +72,7 @@
       </h1>
 
       <p>
-        Review your Premium plan and continue
+        Review your selected EPS TOPIK test set and continue
         to the secure eSewa payment gateway.
       </p>
 
@@ -83,72 +83,75 @@
     <div class="payment-layout">
 
 
-      <!-- ================= ORDER DETAILS ================= -->
+      <!-- ================= TEST DETAILS ================= -->
 
       <section class="payment-card">
 
         <div class="payment-card-header">
 
           <div>
+
             <span class="payment-small-label">
-              YOUR PLAN
+              SELECTED TEST
             </span>
 
-            <h2>
-              EPS TOPIK Premium
+            <h2 id="selectedSetName">
+              Set No. 02
             </h2>
+
+            <p
+              id="selectedCategoryName"
+              class="selected-category"
+            >
+              Korean Vowels &amp; Consonants
+            </p>
+
           </div>
 
+
           <span class="payment-plan-badge">
-            PREMIUM
+            NPR 50
           </span>
 
         </div>
+
 
 
         <div class="payment-features">
 
           <div>
             <span>✓</span>
-            Access all EPS TOPIK tests
+            Full access to this selected test set
           </div>
 
           <div>
             <span>✓</span>
-            Reading & Listening Tests
+            Reading &amp; Listening Test
           </div>
 
           <div>
             <span>✓</span>
-            Instant Results
+            Instant Result
           </div>
 
           <div>
             <span>✓</span>
-            Detailed Performance Tracking
-          </div>
-
-          <div>
-            <span>✓</span>
-            Progress Dashboard
-          </div>
-
-          <div>
-            <span>✓</span>
-            Recent Test History
+            Detailed Answer Review
           </div>
 
         </div>
 
 
+
         <div class="payment-note">
 
-          <strong>Premium Access</strong>
+          <strong>
+            Test Set Access
+          </strong>
 
           <p>
-            Premium test access will be activated
-            after your payment is successfully
-            verified.
+            This test set will be unlocked only after your
+            eSewa payment is successfully verified.
           </p>
 
         </div>
@@ -170,44 +173,65 @@
         </h2>
 
 
+
         <div class="summary-row">
 
-          <span>
-            EPS TOPIK Premium
-          </span>
+          <div>
+
+            <span id="summaryCategoryName">
+              Korean Vowels &amp; Consonants
+            </span>
+
+            <small id="summarySetName">
+              Set No. 02
+            </small>
+
+          </div>
+
 
           <strong>
-            ₹499
+            NPR 50
           </strong>
 
         </div>
+
 
 
         <div class="summary-divider"></div>
 
 
+
         <div class="summary-total">
 
           <div>
-            <span>Total</span>
-            <small>Amount to pay</small>
+
+            <span>
+              Total
+            </span>
+
+            <small>
+              Amount to pay
+            </small>
+
           </div>
 
+
           <strong>
-            ₹499
+            NPR 50
           </strong>
 
         </div>
 
 
 
-        <!-- ESEWA -->
+        <!-- ================= ESEWA ================= -->
 
         <div class="payment-method">
 
           <span class="payment-small-label">
             PAYMENT METHOD
           </span>
+
 
           <div class="esewa-option">
 
@@ -216,6 +240,7 @@
             </div>
 
             <div>
+
               <strong>
                 Pay with eSewa
               </strong>
@@ -223,6 +248,7 @@
               <small>
                 Secure online payment
               </small>
+
             </div>
 
           </div>
@@ -231,12 +257,14 @@
 
 
 
+        <!-- ================= PAY BUTTON ================= -->
+
         <button
           type="button"
           class="payment-button"
           id="payWithEsewaButton"
         >
-          Pay ₹499 with eSewa →
+          Pay NPR 50 with eSewa →
         </button>
 
 
