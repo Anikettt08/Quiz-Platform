@@ -981,17 +981,42 @@ td {
     padding: 8px 14px;
 
     background: var(--primary);
-    color: #ffffff;
+    color: #ffffff !important;
 
+    border: none;
     border-radius: 7px;
+
     text-decoration: none;
 
+    font-family: inherit;
     font-size: 12px;
     font-weight: 600;
+    line-height: 1.4;
 
-    transition: 0.2s ease;
+    cursor: pointer;
+
+    box-sizing: border-box;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
 }
 
+.settings-action-btn:hover {
+    background: #1d4ed8;
+    color: #ffffff !important;
+    transform: translateY(-1px);
+}
+
+.settings-action-btn:visited,
+.settings-action-btn:active,
+.settings-action-btn:focus {
+    color: #ffffff !important;
+}
+.settings-action-btn {
+    -webkit-appearance: none;
+    appearance: none;
+}
 .settings-action-btn:hover {
     background: #1d4ed8;
     color: #ffffff;
@@ -1125,6 +1150,131 @@ td {
     font-size: 13px;
 
     transition: 0.2s;
+}
+/* =========================
+   PASSWORD INPUT
+========================= */
+
+.password-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-input-wrapper input {
+    width: 100%;
+    padding-right: 65px !important;
+}
+
+
+.password-toggle {
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: none;
+    background: transparent;
+
+    color: var(--primary);
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    padding: 4px 2px;
+}
+
+
+.password-toggle:hover {
+    color: #1d4ed8;
+}
+
+
+.password-toggle:focus {
+    outline: none;
+}
+
+
+/* =========================
+   PASSWORD MESSAGE
+========================= */
+
+.password-message {
+    display: none;
+
+    margin-bottom: 18px;
+    padding: 11px 13px;
+
+    border-radius: 8px;
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+.password-message.show {
+    display: block;
+}
+
+
+.password-message.success {
+    color: #15803d;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+}
+
+
+.password-message.error {
+    color: #dc2626;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+}
+
+
+.password-message.info {
+    color: #2563eb;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+}
+
+
+/* =========================
+   PASSWORD REQUIREMENTS
+========================= */
+
+.password-requirements li.valid {
+    color: var(--success);
+    font-weight: 600;
+}
+
+
+.password-requirements li.invalid {
+    color: #dc2626;
+}
+
+
+.password-requirements li.valid::marker {
+    color: var(--success);
+}
+
+
+.password-requirements li.invalid::marker {
+    color: #dc2626;
+}
+
+
+/* =========================
+   DISABLED PASSWORD BUTTON
+========================= */
+
+#changePasswordBtn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .settings-field input:focus {
@@ -4483,6 +4633,166 @@ td {
 
     .platform-system-grid {
         grid-template-columns: 1fr;
+    }
+
+}
+/* =====================================================
+   ADMIN PROFILE PICTURE
+   ===================================================== */
+
+.profile-picture-section {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+
+    padding: 20px 0;
+    margin-bottom: 24px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+/* PROFILE PICTURE PREVIEW */
+
+.profile-picture-preview-wrapper {
+    flex-shrink: 0;
+}
+
+
+.profile-picture-preview {
+    width: 90px;
+    height: 90px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--primary);
+    color: #ffffff;
+
+    font-size: 32px;
+    font-weight: 600;
+
+    overflow: hidden;
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+/* PROFILE PICTURE CONTENT */
+
+.profile-picture-content {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+
+.profile-picture-content h4 {
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+.profile-picture-content p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* BUTTONS */
+
+.profile-picture-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 5px;
+}
+
+
+.profile-upload-btn,
+.profile-remove-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 34px;
+
+    padding: 7px 13px;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    font-size: 11px;
+}
+
+
+.profile-remove-btn {
+    color: #dc2626;
+}
+
+
+/* HELP TEXT */
+
+.profile-picture-help {
+    color: var(--muted);
+
+    font-size: 10px;
+
+    margin-top: 2px;
+}
+
+
+/* =====================================================
+   TOPBAR + SIDEBAR PROFILE AVATAR IMAGE
+   ===================================================== */
+
+.profile-avatar {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    overflow: hidden;
+
+    background-color: var(--primary);
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 700px) {
+
+    .profile-picture-section {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+
+    .profile-picture-content {
+        width: 100%;
+    }
+
+
+    .profile-picture-actions {
+        flex-wrap: wrap;
     }
 
 }

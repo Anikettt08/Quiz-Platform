@@ -1,4 +1,55 @@
 document.addEventListener("DOMContentLoaded", () => {
+/* =========================
+   PASSWORD SHOW / HIDE
+========================= */
+
+const passwordToggleButtons =
+    document.querySelectorAll(".password-toggle");
+
+
+passwordToggleButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const targetId =
+            button.dataset.target;
+
+        const passwordInput =
+            document.getElementById(targetId);
+
+        if (!passwordInput) {
+            return;
+        }
+
+
+        if (passwordInput.type === "password") {
+
+            passwordInput.type = "text";
+
+            button.textContent = "Hide";
+
+            button.setAttribute(
+                "aria-label",
+                "Hide password"
+            );
+
+        } else {
+
+            passwordInput.type = "password";
+
+            button.textContent = "Show";
+
+            button.setAttribute(
+                "aria-label",
+                "Show password"
+            );
+
+        }
+
+    });
+
+});
+
     let currentUsers = [];
         /* =========================
        DYNAMIC DATA ELEMENTS
@@ -130,60 +181,159 @@ document.addEventListener("DOMContentLoaded", () => {
             data.totalAttempts ?? 0;
     }
 }
+/* =========================
+   UPDATE ADMIN PROFILE
+========================= */
 
-    /* =========================
-       UPDATE ADMIN PROFILE
-    ========================= */
-
-    function updateAdminProfile(data) {
+function updateAdminProfile(data) {
 
     const name = data.name || "";
     const role = data.role || "";
     const email = data.email || "";
 
-        // Sidebar
-        if (sidebarAdminName) {
-            sidebarAdminName.textContent = name;
+    const avatarLetter = name
+        ? name.charAt(0).toUpperCase()
+        : "";
+
+
+    /*
+     * Profile picture is temporarily stored
+     * in localStorage until backend integration
+     * is completed.
+     */
+    const savedProfilePicture =
+        localStorage.getItem("adminProfilePicture") || "";
+
+
+    /* =========================
+       PROFILE AVATAR HELPER
+    ========================= */
+
+    function setAdminAvatar(element, imageUrl) {
+
+        if (!element) {
+            return;
         }
 
-        if (sidebarAdminRole) {
-            sidebarAdminRole.textContent = role;
+
+        /*
+         * If a profile picture exists,
+         * display it.
+         */
+        if (imageUrl) {
+
+            element.textContent = "";
+
+            element.style.backgroundImage =
+                `url("${imageUrl}")`;
+
+            element.style.backgroundSize =
+                "cover";
+
+            element.style.backgroundPosition =
+                "center";
+
+            element.style.backgroundRepeat =
+                "no-repeat";
+
+            return;
         }
 
-        if (sidebarAdminAvatar) {
-            sidebarAdminAvatar.textContent =
-                name.charAt(0).toUpperCase();
-        }
 
-        // Top profile
-        if (topAdminName) {
-            topAdminName.textContent = name;
-        }
+        /*
+         * No profile picture.
+         *
+         * Do NOT put "A" here.
+         */
+        element.style.backgroundImage =
+            "none";
 
-        if (topAdminRole) {
-            topAdminRole.textContent = role;
-        }
+        element.textContent = "";
 
-        if (topAdminAvatar) {
-            topAdminAvatar.textContent =
-                name.charAt(0).toUpperCase();
-        }
-
-        // Welcome message
-        if (welcomeAdminName) {
-            welcomeAdminName.textContent = name;
-        }
-
-        // Settings
-        if (settingsAdminName) {
-            settingsAdminName.value = name;
-        }
-
-        if (settingsAdminEmail) {
-            settingsAdminEmail.value = email;
-        }
     }
 
+
+    /* =========================
+       SIDEBAR INFORMATION
+    ========================= */
+
+    if (sidebarAdminAvatar) {
+    sidebarAdminAvatar.textContent = avatarLetter;
+}
+
+
+    if (sidebarAdminRole) {
+
+        sidebarAdminRole.textContent =
+            role || "Admin";
+
+    }
+
+
+    setAdminAvatar(
+        sidebarAdminAvatar,
+        savedProfilePicture
+    );
+
+
+    /* =========================
+       TOP PROFILE INFORMATION
+    ========================= */
+
+    if (topAdminName) {
+
+        topAdminName.textContent =
+            name || "";
+
+    }
+
+
+    if (topAdminRole) {
+
+        topAdminRole.textContent =
+            role || "Admin";
+
+    }
+
+
+    setAdminAvatar(
+        topAdminAvatar,
+        savedProfilePicture
+    );
+
+
+    /* =========================
+       WELCOME MESSAGE
+    ========================= */
+
+    if (welcomeAdminName) {
+
+        welcomeAdminName.textContent =
+            name || "";
+
+    }
+
+
+    /* =========================
+       SETTINGS
+    ========================= */
+
+    if (settingsAdminName) {
+
+        settingsAdminName.value =
+            name;
+
+    }
+
+
+    if (settingsAdminEmail) {
+
+        settingsAdminEmail.value =
+            email;
+
+    }
+
+}
 
     /* =========================
        UPDATE USERS TABLE
@@ -439,73 +589,286 @@ document.addEventListener("click", function (event) {
 
 loadPublishedQuizzes();
 
+/* =========================
+   SIDEBAR NAVIGATION
+========================= */
 
-    /* =========================
-       SIDEBAR NAVIGATION
-    ========================= */
+navItems.forEach(item => {
 
-    navItems.forEach(item => {
+    item.addEventListener("click", event => {
 
-        item.addEventListener("click", event => {
+        /*
+         * Separate HTML pages such as:
+         * account-security.html
+         * admin-profile.html
+         * admin-access.html
+         * quiz-settings.html
+         * platform-info.html
+         *
+         * do not have data-section.
+         *
+         * Therefore, allow the browser to
+         * navigate normally.
+         */
+        const sectionName = item.dataset.section;
 
-            event.preventDefault();
+        if (!sectionName) {
+            return;
+        }
 
-            const sectionName = item.dataset.section;
 
-            navItems.forEach(nav => {
-                nav.classList.remove("active");
-            });
+        /*
+         * These links belong to admin.html
+         * and are handled as dashboard sections.
+         */
+        event.preventDefault();
 
-            item.classList.add("active");
 
-            sections.forEach(section => {
-                section.classList.remove("active");
-            });
+        navItems.forEach(nav => {
+            nav.classList.remove("active");
+        });
 
-            const selectedSection =
-                document.getElementById(sectionName);
+        item.classList.add("active");
 
-            if (selectedSection) {
-                selectedSection.classList.add("active");
+
+        sections.forEach(section => {
+            section.classList.remove("active");
+        });
+
+
+        const selectedSection =
+            document.getElementById(sectionName);
+
+
+        if (selectedSection) {
+            selectedSection.classList.add("active");
+        }
+
+
+        const pageMeta = {
+
+            dashboard: {
+                title: "Dashboard",
+                subtitle: "Overview of your EPS TOPIK platform"
+            },
+
+            users: {
+                title: "Users",
+                subtitle: "Manage platform users"
+            },
+
+            quizzes: {
+                title: "Quizzes",
+                subtitle: "Create and manage quizzes"
+            },
+
+            results: {
+                title: "Results",
+                subtitle: "View quiz results and performance"
+            },
+
+            payments: {
+                title: "Payments",
+                subtitle: "Manage and monitor payment activity"
+            },
+
+            settings: {
+                title: "Settings",
+                subtitle: "Manage admin panel settings"
             }
 
-           const pageMeta = {
-    dashboard: {
-        title: "Dashboard",
-        subtitle: "Overview of your EPS TOPIK platform"
-    },
-    users: {
-        title: "Users",
-        subtitle: "Manage platform users"
-    },
-    quizzes: {
-        title: "Quizzes",
-        subtitle: "Create and manage quizzes"
-    },
-    results: {
-        title: "Results",
-        subtitle: "View quiz results and performance"
-    },
-    payments: {
-        title: "Payments",
-        subtitle: "Manage and monitor payment activity"
-    },
-    settings: {
-        title: "Settings",
-        subtitle: "Manage admin panel settings"
-    }
-};
+        };
 
-if (pageMeta[sectionName]) {
-    pageTitle.textContent = pageMeta[sectionName].title;
-    pageSubtitle.textContent = pageMeta[sectionName].subtitle;
-}
 
+        if (
+            pageMeta[sectionName] &&
+            pageTitle &&
+            pageSubtitle
+        ) {
+
+            pageTitle.textContent =
+                pageMeta[sectionName].title;
+
+            pageSubtitle.textContent =
+                pageMeta[sectionName].subtitle;
+
+        }
+
+
+        if (sidebar) {
             sidebar.classList.remove("open");
-        });
+        }
 
     });
 
+});
+/* =========================
+   LOAD SECTION FROM URL HASH
+========================= */
+
+function loadSectionFromHash() {
+
+    const hash =
+        window.location.hash.replace(
+            "#",
+            ""
+        );
+
+
+    /*
+     * No hash means dashboard.
+     */
+    if (!hash) {
+        return;
+    }
+
+
+    /*
+     * Find requested section.
+     */
+
+    const targetSection =
+        document.getElementById(hash);
+
+
+    /*
+     * If this is a separate HTML page,
+     * there will be no matching dashboard
+     * section. Simply do nothing.
+     */
+
+    if (!targetSection) {
+        return;
+    }
+
+
+    /*
+     * Find matching sidebar item.
+     */
+
+    const targetNav =
+        document.querySelector(
+            `.nav-item[data-section="${hash}"]`
+        );
+
+
+    /*
+     * Remove active state.
+     */
+
+    navItems.forEach(nav => {
+
+        nav.classList.remove(
+            "active"
+        );
+
+    });
+
+
+    sections.forEach(section => {
+
+        section.classList.remove(
+            "active"
+        );
+
+    });
+
+
+    /*
+     * Activate requested section.
+     */
+
+    targetSection.classList.add(
+        "active"
+    );
+
+
+    if (targetNav) {
+
+        targetNav.classList.add(
+            "active"
+        );
+
+    }
+
+
+    /*
+     * Page titles.
+     */
+
+    const pageMeta = {
+
+        dashboard: {
+            title: "Dashboard",
+            subtitle:
+                "Overview of your EPS TOPIK platform"
+        },
+
+        users: {
+            title: "Users",
+            subtitle:
+                "Manage platform users"
+        },
+
+        quizzes: {
+            title: "Quizzes",
+            subtitle:
+                "Create and manage quizzes"
+        },
+
+        results: {
+            title: "Results",
+            subtitle:
+                "View quiz results and performance"
+        },
+
+        payments: {
+            title: "Payments",
+            subtitle:
+                "Manage and monitor payment activity"
+        },
+
+        settings: {
+            title: "Settings",
+            subtitle:
+                "Manage admin panel settings"
+        }
+
+    };
+
+
+    if (
+        pageMeta[hash] &&
+        pageTitle &&
+        pageSubtitle
+    ) {
+
+        pageTitle.textContent =
+            pageMeta[hash].title;
+
+        pageSubtitle.textContent =
+            pageMeta[hash].subtitle;
+
+    }
+
+}
+
+
+/*
+ * Load section when admin.html opens.
+ */
+
+loadSectionFromHash();
+
+
+/*
+ * React when URL hash changes.
+ */
+
+window.addEventListener(
+    "hashchange",
+    loadSectionFromHash
+);
 
     /* =========================
        MOBILE MENU
@@ -1067,6 +1430,695 @@ if (addUserForm) {
         closeAddUserModalWindow();
 
     });
+}
+/* =====================================================
+   PROFILE PICTURE MANAGEMENT
+   ===================================================== */
+
+const profilePictureInput =
+    document.getElementById("profilePictureInput");
+
+const profilePicturePreview =
+    document.getElementById("profilePicturePreview");
+
+const removeProfilePicture =
+    document.getElementById("removeProfilePicture");
+
+
+/* =====================================================
+   APPLY PROFILE PICTURE TO AVATAR
+   ===================================================== */
+
+function applyProfilePictureToAvatars(imageData) {
+
+    /*
+     * TOP RIGHT AVATAR
+     */
+
+    if (topAdminAvatar) {
+
+        if (imageData) {
+
+            topAdminAvatar.textContent = "";
+
+            topAdminAvatar.style.backgroundImage =
+                `url("${imageData}")`;
+
+            topAdminAvatar.style.backgroundSize =
+                "cover";
+
+            topAdminAvatar.style.backgroundPosition =
+                "center";
+
+            topAdminAvatar.style.backgroundRepeat =
+                "no-repeat";
+
+        } else {
+
+            topAdminAvatar.style.backgroundImage =
+                "none";
+
+            topAdminAvatar.textContent = "";
+
+        }
+
+    }
+
+
+    /*
+     * SIDEBAR AVATAR
+     */
+
+    if (sidebarAdminAvatar) {
+
+        if (imageData) {
+
+            sidebarAdminAvatar.textContent = "";
+
+            sidebarAdminAvatar.style.backgroundImage =
+                `url("${imageData}")`;
+
+            sidebarAdminAvatar.style.backgroundSize =
+                "cover";
+
+            sidebarAdminAvatar.style.backgroundPosition =
+                "center";
+
+            sidebarAdminAvatar.style.backgroundRepeat =
+                "no-repeat";
+
+        } else {
+
+            sidebarAdminAvatar.style.backgroundImage =
+                "none";
+
+            sidebarAdminAvatar.textContent = "";
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD SAVED PROFILE PICTURE
+   ===================================================== */
+
+function loadProfilePicture() {
+
+    const savedPicture =
+        localStorage.getItem(
+            "adminProfilePicture"
+        ) || "";
+
+
+    /*
+     * Update profile page preview
+     */
+
+    if (profilePicturePreview) {
+
+        if (savedPicture) {
+
+            profilePicturePreview.textContent =
+                "";
+
+            profilePicturePreview.style.backgroundImage =
+                `url("${savedPicture}")`;
+
+            profilePicturePreview.style.backgroundSize =
+                "cover";
+
+            profilePicturePreview.style.backgroundPosition =
+                "center";
+
+            profilePicturePreview.style.backgroundRepeat =
+                "no-repeat";
+
+        } else {
+
+            profilePicturePreview.style.backgroundImage =
+                "none";
+
+            profilePicturePreview.textContent =
+                "";
+
+        }
+
+    }
+
+
+    /*
+     * Update avatars on every page.
+     */
+
+    applyProfilePictureToAvatars(
+        savedPicture
+    );
+
+}
+
+
+/* =====================================================
+   CHANGE PROFILE PICTURE
+   ===================================================== */
+
+if (profilePictureInput) {
+
+    profilePictureInput.addEventListener(
+        "change",
+        event => {
+
+            const file =
+                event.target.files[0];
+
+
+            if (!file) {
+                return;
+            }
+
+
+            /* =========================
+               VALIDATE FILE TYPE
+            ========================= */
+
+            const allowedTypes = [
+                "image/jpeg",
+                "image/png",
+                "image/webp"
+            ];
+
+
+            if (
+                !allowedTypes.includes(
+                    file.type
+                )
+            ) {
+
+                alert(
+                    "Please select a JPG, PNG or WebP image."
+                );
+
+                profilePictureInput.value =
+                    "";
+
+                return;
+            }
+
+
+            /* =========================
+               VALIDATE FILE SIZE
+            ========================= */
+
+            const maxSize =
+                2 * 1024 * 1024;
+
+
+            if (file.size > maxSize) {
+
+                alert(
+                    "Profile picture must be smaller than 2 MB."
+                );
+
+                profilePictureInput.value =
+                    "";
+
+                return;
+            }
+
+
+            /* =========================
+               READ IMAGE
+            ========================= */
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload = function () {
+
+                const imageData =
+                    reader.result;
+
+
+                /*
+                 * Temporary frontend storage.
+                 *
+                 * Later this will be replaced
+                 * with backend/cloud storage.
+                 */
+                localStorage.setItem(
+                    "adminProfilePicture",
+                    imageData
+                );
+
+
+                /*
+                 * Update profile page preview.
+                 */
+
+                if (profilePicturePreview) {
+
+                    profilePicturePreview.textContent =
+                        "";
+
+                    profilePicturePreview.style.backgroundImage =
+                        `url("${imageData}")`;
+
+                    profilePicturePreview.style.backgroundSize =
+                        "cover";
+
+                    profilePicturePreview.style.backgroundPosition =
+                        "center";
+
+                    profilePicturePreview.style.backgroundRepeat =
+                        "no-repeat";
+
+                }
+
+
+                /*
+                 * Update top and sidebar avatars.
+                 */
+
+                applyProfilePictureToAvatars(
+                    imageData
+                );
+
+
+                alert(
+                    "Profile picture updated successfully."
+                );
+
+            };
+
+
+            reader.onerror = function () {
+
+                alert(
+                    "Unable to read the selected image."
+                );
+
+                profilePictureInput.value =
+                    "";
+
+            };
+
+
+            reader.readAsDataURL(file);
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   REMOVE PROFILE PICTURE
+   ===================================================== */
+
+if (removeProfilePicture) {
+
+    removeProfilePicture.addEventListener(
+        "click",
+        () => {
+
+            const confirmed =
+                confirm(
+                    "Are you sure you want to remove your profile picture?"
+                );
+
+
+            if (!confirmed) {
+                return;
+            }
+
+
+            /*
+             * Remove stored image.
+             */
+
+            localStorage.removeItem(
+                "adminProfilePicture"
+            );
+
+
+            /*
+             * Reset preview.
+             */
+
+            if (profilePicturePreview) {
+
+                profilePicturePreview.style.backgroundImage =
+                    "none";
+
+                profilePicturePreview.textContent =
+                    "";
+
+            }
+
+
+            /*
+             * Reset both avatars.
+             *
+             * No hardcoded "A".
+             */
+
+            applyProfilePictureToAvatars(
+                ""
+            );
+
+
+            /*
+             * Clear file input.
+             */
+
+            if (profilePictureInput) {
+
+                profilePictureInput.value =
+                    "";
+
+            }
+
+
+            alert(
+                "Profile picture removed."
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   LOAD PICTURE WHEN PAGE OPENS
+   ===================================================== */
+
+loadProfilePicture();
+
+/* =========================
+   ACCOUNT SECURITY
+========================= */
+
+const changePasswordForm =
+    document.getElementById("changePasswordForm");
+
+const changePasswordBtn =
+    document.getElementById("changePasswordBtn");
+
+const currentPasswordInput =
+    document.getElementById("currentPassword");
+
+const newPasswordInput =
+    document.getElementById("newPassword");
+
+const confirmPasswordInput =
+    document.getElementById("confirmPassword");
+
+
+if (changePasswordForm) {
+
+    changePasswordForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            /* =========================
+               GET PASSWORD VALUES
+            ========================= */
+
+            const currentPassword =
+                currentPasswordInput.value;
+
+            const newPassword =
+                newPasswordInput.value;
+
+            const confirmPassword =
+                confirmPasswordInput.value;
+
+
+            /* =========================
+               BASIC FRONTEND VALIDATION
+            ========================= */
+
+            if (!currentPassword) {
+
+                alert(
+                    "Please enter your current password."
+                );
+
+                currentPasswordInput.focus();
+
+                return;
+            }
+
+
+            if (!newPassword) {
+
+                alert(
+                    "Please enter your new password."
+                );
+
+                newPasswordInput.focus();
+
+                return;
+            }
+
+
+            if (newPassword.length < 8) {
+
+                alert(
+                    "New password must contain at least 8 characters."
+                );
+
+                newPasswordInput.focus();
+
+                return;
+            }
+
+
+            if (!confirmPassword) {
+
+                alert(
+                    "Please confirm your new password."
+                );
+
+                confirmPasswordInput.focus();
+
+                return;
+            }
+
+
+            if (newPassword !== confirmPassword) {
+
+                alert(
+                    "New passwords do not match."
+                );
+
+                confirmPasswordInput.focus();
+
+                return;
+            }
+
+
+            if (currentPassword === newPassword) {
+
+                alert(
+                    "New password must be different from your current password."
+                );
+
+                newPasswordInput.focus();
+
+                return;
+            }
+
+
+            /* =========================
+               GET ACCESS TOKEN
+            ========================= */
+
+            const accessToken =
+                localStorage.getItem("access_token");
+
+
+            if (!accessToken) {
+
+                alert(
+                    "Your session has expired. Please login again."
+                );
+
+                window.location.href =
+                    "ad-login.html";
+
+                return;
+            }
+
+
+            /* =========================
+               BUTTON LOADING STATE
+            ========================= */
+
+            if (changePasswordBtn) {
+
+                changePasswordBtn.disabled = true;
+
+                changePasswordBtn.textContent =
+                    "Changing Password...";
+            }
+
+
+            try {
+
+                /* =========================
+                   BACKEND API
+                ========================= */
+
+                const API_BASE_URL =
+                    window.EPS_API?.baseUrl ||
+                    "http://127.0.0.1:8000";
+
+
+                const response =
+                    await fetch(
+                        `${API_BASE_URL}/auth/admin/change-password`,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json",
+
+                                "Authorization":
+                                    `Bearer ${accessToken}`
+                            },
+
+                            body: JSON.stringify({
+
+                                current_password:
+                                    currentPassword,
+
+                                new_password:
+                                    newPassword,
+
+                                confirm_password:
+                                    confirmPassword
+
+                            })
+                        }
+                    );
+
+
+                /* =========================
+                   READ RESPONSE
+                ========================= */
+
+                let data = {};
+
+                try {
+
+                    data =
+                        await response.json();
+
+                } catch {
+
+                    data = {};
+
+                }
+
+
+                /* =========================
+                   BACKEND ERROR
+                ========================= */
+
+                if (!response.ok) {
+
+                    /*
+                     * Invalid/expired JWT
+                     */
+                    if (
+                        response.status === 401
+                    ) {
+
+                        localStorage.removeItem(
+                            "access_token"
+                        );
+
+                        localStorage.removeItem(
+                            "token_type"
+                        );
+
+                        alert(
+                            "Your session has expired. Please login again."
+                        );
+
+                        window.location.href =
+                            "ad-login.html";
+
+                        return;
+                    }
+
+
+                    throw new Error(
+                        data.detail ||
+                        data.message ||
+                        "Unable to change password."
+                    );
+                }
+
+
+                /* =========================
+                   SUCCESS
+                ========================= */
+
+                alert(
+                    data.message ||
+                    "Password changed successfully."
+                );
+
+
+                /*
+                 * Clear password fields.
+                 */
+                changePasswordForm.reset();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Change password error:",
+                    error
+                );
+
+
+                alert(
+                    error.message ||
+                    "Unable to change password. Please try again."
+                );
+
+
+            } finally {
+
+                /* =========================
+                   RESTORE BUTTON
+                ========================= */
+
+                if (changePasswordBtn) {
+
+                    changePasswordBtn.disabled = false;
+
+                    changePasswordBtn.textContent =
+                        "Change Password";
+                }
+
+            }
+
+        }
+    );
+
 }
 
 });

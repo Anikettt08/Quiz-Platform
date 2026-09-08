@@ -332,6 +332,73 @@
 
                     </div>
 
+                               </div>
+
+
+                <!-- =====================================================
+                     PROFILE PICTURE
+                     ===================================================== -->
+
+                <div class="profile-picture-section">
+
+                    <div class="profile-picture-preview-wrapper">
+
+                        <div
+                            class="profile-picture-preview"
+                            id="profilePicturePreview"
+                        >
+                            A
+                        </div>
+
+                    </div>
+
+
+                    <div class="profile-picture-content">
+
+                        <h4>
+                            Profile Picture
+                        </h4>
+
+                        <p>
+                            Upload a profile picture that will appear
+                            in the admin dashboard.
+                        </p>
+
+
+                        <div class="profile-picture-actions">
+
+                            <label
+                                for="profilePictureInput"
+                                class="secondary-btn profile-upload-btn"
+                            >
+                                Change Profile Picture
+                            </label>
+
+                            <button
+                                type="button"
+                                class="secondary-btn profile-remove-btn"
+                                id="removeProfilePicture"
+                            >
+                                Remove
+                            </button>
+
+                        </div>
+
+
+                        <input
+                            type="file"
+                            id="profilePictureInput"
+                            accept="image/png,image/jpeg,image/webp"
+                            hidden
+                        >
+
+
+                        <small class="profile-picture-help">
+                            JPG, PNG or WebP. Maximum size: 2 MB.
+                        </small>
+
+                    </div>
+
                 </div>
 
 
@@ -340,7 +407,6 @@
                     id="adminProfileForm"
                     class="settings-form"
                 >
-
 
                     <!-- NAME -->
 
