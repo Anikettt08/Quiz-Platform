@@ -1,145 +1,303 @@
-const params =
-  new URLSearchParams(
-    window.location.search
-  );
+/* =========================================
+   CONFIG
+   ========================================= */
+
+const SET_PRICE = 50;
+
+// WhatsApp number with country code.
+// India: 91 + mobile number
+// No +, spaces, or hyphens.
+
+const WHATSAPP_BUSINESS_NUMBER = "919547428567";
 
 
-const category =
-  params.get("category");
+/* =========================================
+   ELEMENTS
+   ========================================= */
+
+const selectedSetsContainer =
+  document.getElementById("selectedSetsContainer");
+
+const summarySetCount =
+  document.getElementById("summarySetCount");
+
+const summaryTotal =
+  document.getElementById("summaryTotal");
+
+const whatsappButton =
+  document.getElementById("whatsappButton");
 
 
-const setId =
-  Number(
-    params.get("set")
-  );
+/* =========================================
+   CATEGORY NAMES
+   ========================================= */
 
+const categoryNames = {
 
-const validCategories = {
   vowels: "Korean Vowels & Consonants",
+
   numbers: "Korean Numbers",
+
   counting: "Counting Units",
+
   speech: "Parts of Speech",
+
   tense: "Tense",
+
   formal: "Formal & Informal Language",
+
   indirect: "Indirect Speech",
+
   textbook: "EPS TOPIK TEXT BOOK"
+
 };
 
 
 /* =========================================
-   VALIDATE SELECTED TEST
+   LOAD CART
    ========================================= */
 
-if (
-  !validCategories[category] ||
-  !Number.isInteger(setId) ||
-  setId < 2 ||
-  setId > 21
-) {
+function loadCart() {
 
-  alert(
-    "Invalid paid test set selected."
-  );
+  const storedCart =
+    sessionStorage.getItem("epsTopikCart");
 
-  window.location.href =
-    "set.html";
+  if (!storedCart) {
+
+    showEmptyCart();
+
+    return [];
+
+  }
+
+  try {
+
+    const cart =
+      JSON.parse(storedCart);
+
+    if (
+      !cart.items ||
+      !Array.isArray(cart.items) ||
+      cart.items.length === 0
+    ) {
+
+      showEmptyCart();
+
+      return [];
+
+    }
+
+    return cart.items;
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Invalid cart data:",
+      error
+    );
+
+    showEmptyCart();
+
+    return [];
+
+  }
 
 }
 
 
-const categoryName =
-  validCategories[category];
+/* =========================================
+   EMPTY CART
+   ========================================= */
 
+function showEmptyCart() {
 
-const formattedSet =
-  String(setId)
-    .padStart(2, "0");
+  selectedSetsContainer.innerHTML = `
 
+    <div class="empty-cart">
+
+      No paid test sets selected.
+
+      <br><br>
+
+      <a href="set.html">
+        ← Choose Test Sets
+      </a>
+
+    </div>
+
+  `;
+
+  summarySetCount.textContent = "0";
+
+  summaryTotal.textContent = "NPR 0";
+
+  whatsappButton.disabled = true;
+
+  whatsappButton.style.opacity = "0.5";
+
+  whatsappButton.style.cursor = "not-allowed";
+
+}
 
 
 /* =========================================
-   UPDATE PAYMENT PAGE
+   RENDER ORDER
    ========================================= */
 
-document
-  .getElementById(
-    "selectedSetName"
-  )
-  .textContent =
-    `Set No. ${formattedSet}`;
+function renderCart(items) {
+
+  selectedSetsContainer.innerHTML = "";
+
+  items.forEach(item => {
+
+    const categoryName =
+      categoryNames[item.category] ||
+      item.categoryName ||
+      item.category;
+
+    const formattedSet =
+      String(item.set).padStart(2, "0");
+
+    const setElement =
+      document.createElement("div");
+
+    setElement.className =
+      "selected-set-item";
+
+    setElement.innerHTML = `
+
+      <div class="selected-set-info">
+
+        <strong>
+          ${categoryName}
+        </strong>
+
+        <span>
+          Set No. ${formattedSet}
+        </span>
+
+      </div>
+
+      <div class="selected-set-price">
+        NPR ${SET_PRICE}
+      </div>
+
+    `;
+
+    selectedSetsContainer.appendChild(
+      setElement
+    );
+
+  });
 
 
-document
-  .getElementById(
-    "selectedCategoryName"
-  )
-  .textContent =
-    categoryName;
+  const total =
+    items.length * SET_PRICE;
 
+  summarySetCount.textContent =
+    items.length;
 
-document
-  .getElementById(
-    "summaryCategoryName"
-  )
-  .textContent =
-    categoryName;
+  summaryTotal.textContent =
+    `NPR ${total}`;
 
-
-document
-  .getElementById(
-    "summarySetName"
-  )
-  .textContent =
-    `Set No. ${formattedSet}`;
-
+}
 
 
 /* =========================================
-   ESEWA BUTTON
+   BUILD WHATSAPP MESSAGE
    ========================================= */
 
-const payButton =
-  document.getElementById(
-    "payWithEsewaButton"
+function buildWhatsAppMessage(items) {
+
+  const total =
+    items.length * SET_PRICE;
+
+  let message =
+`Hello EPS TOPIK Team,
+
+I would like to purchase the following test sets:
+
+`;
+
+  items.forEach(
+    (item, index) => {
+
+      const categoryName =
+        categoryNames[item.category] ||
+        item.categoryName ||
+        item.category;
+
+      const formattedSet =
+        String(item.set).padStart(2, "0");
+
+      message +=
+`${index + 1}. ${categoryName} - Set No. ${formattedSet} - NPR ${SET_PRICE}
+`;
+
+    }
   );
 
 
-payButton.addEventListener(
-  "click",
-  function () {
+  message +=
+`
+Total Sets: ${items.length}
+Total Amount: NPR ${total}
 
-    /*
-      IMPORTANT:
+Please provide the payment details and help me activate these test sets after payment.
 
-      Do not directly generate the eSewa
-      signature here in frontend JavaScript.
+Thank you.`;
 
-      Your FastAPI backend must:
+  return message;
 
-      1. Receive category + set
-      2. Validate the test
-      3. Set authoritative price = NPR 50
-      4. Generate transaction UUID
-      5. Generate eSewa signature
-      6. Return payment information
-    */
+}
 
 
-    console.log(
-      "Selected category:",
-      category
-    );
+/* =========================================
+   OPEN WHATSAPP CHAT
+   ========================================= */
 
+function openWhatsApp(items) {
 
-    console.log(
-      "Selected set:",
-      setId
-    );
-
-
-    alert(
-      "eSewa backend payment integration is the next step."
-    );
-
+  if (items.length === 0) {
+    return;
   }
-);
+
+  const message =
+    buildWhatsAppMessage(items);
+
+  const encodedMessage =
+    encodeURIComponent(message);
+
+  const whatsappURL =
+    `https://wa.me/${WHATSAPP_BUSINESS_NUMBER}?text=${encodedMessage}`;
+
+  window.location.href =
+    whatsappURL;
+
+}
+
+
+/* =========================================
+   INITIAL LOAD
+   ========================================= */
+
+const cartItems =
+  loadCart();
+
+
+if (cartItems.length > 0) {
+
+  renderCart(cartItems);
+
+  whatsappButton.addEventListener(
+    "click",
+    () => {
+
+      openWhatsApp(cartItems);
+
+    }
+  );
+
+}
