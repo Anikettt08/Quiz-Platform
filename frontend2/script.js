@@ -74,8 +74,8 @@ function loadProfilePage() {
 
 
   const name =
-    localStorage.getItem("user_name") ||
-    "Mighty Raju";
+  localStorage.getItem("user_name") ||
+  "Student";
 
 
   const email =
@@ -83,11 +83,9 @@ function loadProfilePage() {
     "";
 
 
-  const studentId =
-    localStorage.getItem("student_id") ||
-    "2023000950";
-
-
+ document.getElementById(
+  "profileStudentId"
+).value = studentId;
   const photo =
     localStorage.getItem("profile_photo");
 
@@ -116,10 +114,7 @@ function loadProfilePage() {
   ).textContent = name;
 
 
-  document.getElementById(
-    "profileDisplayId"
-  ).textContent = studentId;
-
+ 
 
   updateProfileInitials(name);
 
@@ -536,11 +531,7 @@ async function handleProfileUpdate(event) {
       .trim();
 
 
-  const studentId =
-    document
-      .getElementById("profileStudentId")
-      .value
-      .trim();
+ 
 
 
   const currentPassword =
@@ -588,16 +579,6 @@ async function handleProfileUpdate(event) {
   }
 
 
-  if (!studentId) {
-
-    showMessage(
-      "Please enter your student ID.",
-      "error"
-    );
-
-    return;
-
-  }
 
 
 
@@ -689,21 +670,14 @@ async function handleProfileUpdate(event) {
   );
 
 
-  localStorage.setItem(
-    "student_id",
-    studentId
-  );
-
+ 
 
   document.getElementById(
     "profileDisplayName"
   ).textContent = name;
 
 
-  document.getElementById(
-    "profileDisplayId"
-  ).textContent = studentId;
-
+ 
 
   updateProfileInitials(
     name
