@@ -517,6 +517,33 @@
             </div>
         </div>
 
+        <!-- Payment Search / Filter / Sorting -->
+        <div class="results-filters">
+
+            <div class="results-search">
+                <input
+                    type="text"
+                    id="paymentSearch"
+                    placeholder="Search user..."
+                >
+            </div>
+
+            <select id="paymentStatusFilter">
+                <option value="all">All Status</option>
+                <option value="completed">Completed</option>
+                <option value="pending">Pending</option>
+                <option value="failed">Failed</option>
+            </select>
+
+            <select id="paymentSort">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="amount-high">Amount: High to Low</option>
+                <option value="amount-low">Amount: Low to High</option>
+            </select>
+
+        </div>
+
         <div class="table-container">
 
             <table>
@@ -544,14 +571,19 @@
             id="paymentsEmpty"
         >
             <div class="empty-icon">₹</div>
-            <h3>No payment data available</h3>
-            <p>Payment transactions will appear here when available.</p>
+
+            <h3>
+                No payment data available
+            </h3>
+
+            <p>
+                Payment transactions will appear here when available.
+            </p>
         </div>
 
     </div>
 
 </section>
-
 
   <!-- =========================
      SETTINGS SECTION

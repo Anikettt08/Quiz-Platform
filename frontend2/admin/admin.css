@@ -4796,3 +4796,18 @@ td {
     }
 
 }
+/* =========================
+   PAYMENT FILTERS
+========================= */
+
+@media (max-width: 700px) {
+
+    #payments .results-filters {
+        flex-direction: column;
+    }
+
+    #payments .results-filters select {
+        width: 100%;
+    }
+
+}

@@ -2122,3 +2122,181 @@ if (changePasswordForm) {
 }
 
 });
+/* =========================================
+   PAYMENT SEARCH / FILTER / SORT
+========================================= */
+
+const paymentSearch =
+    document.getElementById("paymentSearch");
+
+const paymentStatusFilter =
+    document.getElementById("paymentStatusFilter");
+
+const paymentSort =
+    document.getElementById("paymentSort");
+
+const paymentsTableBody =
+    document.getElementById("paymentsTableBody");
+
+
+function filterAndSortPayments() {
+
+    const searchValue =
+        paymentSearch.value.toLowerCase().trim();
+
+    const statusValue =
+        paymentStatusFilter.value.toLowerCase();
+
+    const rows =
+        Array.from(
+            paymentsTableBody.querySelectorAll("tr")
+        );
+
+
+    /* SEARCH + STATUS FILTER */
+
+    rows.forEach(row => {
+
+        const cells =
+            row.querySelectorAll("td");
+
+        if (cells.length < 4) {
+            return;
+        }
+
+        const user =
+            cells[0].textContent
+                .toLowerCase();
+
+        const status =
+            cells[2].textContent
+                .toLowerCase()
+                .trim();
+
+
+        const matchesSearch =
+            user.includes(searchValue);
+
+        const matchesStatus =
+            statusValue === "all" ||
+            status.includes(statusValue);
+
+
+        row.style.display =
+            matchesSearch && matchesStatus
+                ? ""
+                : "none";
+
+    });
+
+
+    /* SORT */
+
+    const sortedRows =
+        [...rows].sort((a, b) => {
+
+            const aCells =
+                a.querySelectorAll("td");
+
+            const bCells =
+                b.querySelectorAll("td");
+
+            if (
+                aCells.length < 4 ||
+                bCells.length < 4
+            ) {
+                return 0;
+            }
+
+
+            if (
+                paymentSort.value ===
+                "amount-high"
+            ) {
+
+                const aAmount =
+                    parseFloat(
+                        aCells[1].textContent
+                            .replace(/[^\d.]/g, "")
+                    ) || 0;
+
+                const bAmount =
+                    parseFloat(
+                        bCells[1].textContent
+                            .replace(/[^\d.]/g, "")
+                    ) || 0;
+
+                return bAmount - aAmount;
+
+            }
+
+
+            if (
+                paymentSort.value ===
+                "amount-low"
+            ) {
+
+                const aAmount =
+                    parseFloat(
+                        aCells[1].textContent
+                            .replace(/[^\d.]/g, "")
+                    ) || 0;
+
+                const bAmount =
+                    parseFloat(
+                        bCells[1].textContent
+                            .replace(/[^\d.]/g, "")
+                    ) || 0;
+
+                return aAmount - bAmount;
+
+            }
+
+
+            const aDate =
+                new Date(
+                    aCells[3].textContent
+                );
+
+            const bDate =
+                new Date(
+                    bCells[3].textContent
+                );
+
+
+            if (
+                paymentSort.value ===
+                "oldest"
+            ) {
+                return aDate - bDate;
+            }
+
+
+            return bDate - aDate;
+
+        });
+
+
+    sortedRows.forEach(row => {
+        paymentsTableBody.appendChild(row);
+    });
+
+}
+
+
+/* EVENTS */
+
+paymentSearch.addEventListener(
+    "input",
+    filterAndSortPayments
+);
+
+paymentStatusFilter.addEventListener(
+    "change",
+    filterAndSortPayments
+);
+
+paymentSort.addEventListener(
+    "change",
+    filterAndSortPayments
+);
